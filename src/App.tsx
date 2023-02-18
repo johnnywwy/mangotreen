@@ -8,12 +8,21 @@ export const App = defineComponent({
     };
     return () => (
       <>
+        <header>
+          导航
+          <ul>
+            <li>
+              <router-link to="/">Foo</router-link>
+            </li>
+            <li>
+              <router-link to="/about">bar</router-link>
+            </li>
+          </ul>
+        </header>
         <div>
-          <p>{refCount.value}</p>
+          <routerView></routerView>
         </div>
-        <div>
-          <button onClick={onClick}>+1</button>
-        </div>
+        <footer>页脚</footer>
       </>
     );
   },
