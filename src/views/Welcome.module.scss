@@ -1,6 +1,30 @@
 .wrapper {
-  color: red;
-  width: 100px;
-  height: 100px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
   background: pink;
+  > header {
+    flex-shrink: 0;
+    background: pink;
+    display: flex;
+    flex-direction: column;
+    > .logo {
+      width: 5em;
+      height: 5em;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
+    }
+  }
+  > main {
+    flex-grow: 1;
+    background: lightblue;
+  }
+  > footer {
+    flex-shrink: 0;
+    background: lightgreen;
+  }
+
+  .icon {
+  }
 }

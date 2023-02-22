@@ -13,4 +13,7 @@ export default defineConfig({
       mergeProps: true,
     }),
   ],
+  server: {
+    port: 8080,
+  },
 });
