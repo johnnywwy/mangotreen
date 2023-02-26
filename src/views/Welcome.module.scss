@@ -1,9 +1,14 @@
+// @import ;
 .wrapper {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: pink;
-  background-image: linear-gradient(to bottom, #f6d465f0 0%, #fda085 100%);
+
+  background-image: linear-gradient(
+    to bottom,
+    var(--welcome-linear-start) 0%,
+    var(--welcome-linear-end) 100%
+  );
   > header {
     flex-shrink: 0;
     display: flex;
@@ -32,6 +37,7 @@
   }
   > footer {
     flex-shrink: 0;
+    padding-bottom: 10px;
     // background: lightgreen;
   }
 

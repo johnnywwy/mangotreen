@@ -12,6 +12,7 @@ export const welcome = defineComponent({
             <h1>蛋黄记账</h1>
           </header>
           <main class={s.main}><RouterView /></main>
+          <footer class={s.footer}></footer>
         </div>
       </>
     );
