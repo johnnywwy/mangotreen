@@ -11,10 +11,7 @@ export const welcome = defineComponent({
             <img src={logo} class={s.logo} />
             <h1>蛋黄记账</h1>
           </header>
-          <main>
-            <RouterView />
-          </main>
-          <footer>按钮</footer>
+          <main class={s.main}><RouterView /></main>
         </div>
       </>
     );
