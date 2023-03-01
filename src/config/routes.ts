@@ -2,10 +2,17 @@ import { RouteRecordRaw } from "vue-router";
 
 import { welcome } from "../views/Welcome";
 
-import { first } from "../components/welcome/first";
-import { second } from "../components/welcome/second";
-import { third } from "../components/welcome/third";
-import { forth } from "../components/welcome/forth";
+import { First } from "../components/welcome/First";
+import { FirstActions } from "../components/welcome/FirstActions";
+
+import { Second } from "../components/welcome/Second";
+import { SecondActions } from "../components/welcome/SecondActions";
+
+import { Third } from "../components/welcome/Third";
+import { ThirdActions } from "../components/welcome/ThirdActions";
+
+import { Forth } from "../components/welcome/Forth";
+import { ForthActions } from "../components/welcome/ForthActions";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
@@ -14,10 +21,10 @@ export const routes: RouteRecordRaw[] = [
     component: welcome,
     children: [
       { path: "", redirect: "/welcome/1" },
-      { path: "1", component: first },
-      { path: "2", component: second },
-      { path: "3", component: third },
-      { path: "4", component: forth },
+      { path: "1", components: { main: First, footer: FirstActions } },
+      { path: "2", components: { main: Second, footer: SecondActions } },
+      { path: "3", components: { main: Third, footer: ThirdActions } },
+      { path: "4", components: { main: Forth, footer: ForthActions } },
     ],
   },
 ];
