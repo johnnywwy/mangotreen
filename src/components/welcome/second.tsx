@@ -1,5 +1,4 @@
 import s from "./Welcome.module.scss";
-import clock from "../../assets/icons/clock.svg";
 import { RouterLink } from "vue-router";
 
 import { FunctionalComponent } from "vue";

@@ -1,6 +1,5 @@
 import { FunctionalComponent } from "vue";
 import s from "./Welcome.module.scss";
-import chart from "../../assets/icons/chart.svg";
 import { RouterLink } from "vue-router";
 
 export const Third: FunctionalComponent = () => {

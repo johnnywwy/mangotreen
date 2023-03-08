@@ -1,5 +1,4 @@
 import s from "./Welcome.module.scss";
-import cloud from "../../assets/icons/cloud.svg";
 import { RouterLink } from "vue-router";
 import { FunctionalComponent } from "vue";
 
