@@ -5,7 +5,9 @@ import { FunctionalComponent } from "vue";
 
 export const Forth: FunctionalComponent = () => (
   <div class={s.card}>
-    <img class={s.icon} src={cloud} />
+    <svg>
+      <use xlinkHref="#cloud"></use>
+    </svg>
     <h2 class={s.text}>
       云端同步 <br />
       一端记账多端同步

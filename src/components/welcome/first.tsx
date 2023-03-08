@@ -5,7 +5,9 @@ import pig from "../../assets/icons/pig.svg";
 export const First: FunctionalComponent = () => {
   return (
     <div class={s.card}>
-      <img src={pig} class={s.icon} />
+      <svg>
+        <use xlinkHref="#pig"></use>
+      </svg>
       <h2 class={s.text}>
         会挣钱 <br />
         还会省钱

@@ -6,7 +6,9 @@ import { RouterLink } from "vue-router";
 export const Third: FunctionalComponent = () => {
   return (
     <div class={s.card}>
-      <img class={s.icon} src={chart} />
+      <svg>
+        <use xlinkHref="#chart"></use>
+      </svg>
       <h2 class={s.text}>
         每日提醒
         <br />

@@ -9,7 +9,9 @@ export const welcome = defineComponent({
       <>
         <div class={s.wrapper}>
           <header>
-            <img src={logo} class={s.logo} />
+            <svg>
+              <use xlinkHref="#logo"></use>
+            </svg>
             <h1>蛋黄记账</h1>
           </header>
           <main class={s.main}>

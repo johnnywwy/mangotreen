@@ -7,7 +7,9 @@ import { FunctionalComponent } from "vue";
 export const Second: FunctionalComponent = () => {
   return (
     <div class={s.card}>
-      <img class={s.icon} src={clock} />
+      <svg>
+        <use xlinkHref="#clock"></use>
+      </svg>
       <h2 class={s.text}>
         每日提醒
         <br />
