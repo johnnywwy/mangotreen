@@ -14,6 +14,8 @@ import { ThirdActions } from "../components/welcome/ThirdActions";
 import { Forth } from "../components/welcome/Forth";
 import { ForthActions } from "../components/welcome/ForthActions";
 
+import { Start } from "../views/Start";
+
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
   {
@@ -43,4 +45,5 @@ export const routes: RouteRecordRaw[] = [
       },
     ],
   },
+  { path: "/start", component: Start, name: "start" },
 ];
