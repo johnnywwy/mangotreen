@@ -1,15 +1,36 @@
 import { defineComponent, ref, Transition, VNode, watchEffect } from "vue";
-import { RouteLocationNormalizedLoaded, RouterView } from "vue-router";
+import { RouterView, useRoute, useRouter } from "vue-router";
 
 import s from "./Welcome.module.scss";
 import { useSwipe } from "../hooks/useSwipe";
+import { throttle } from "../shared/throttle";
+
+const pushMap: Record<string, string> = {
+  First: "/welcome/2",
+  Second: "/welcome/3",
+  Third: "/welcome/4",
+  Forth: "/start",
+};
 export const welcome = defineComponent({
   setup() {
     const main = ref<HTMLElement>();
-    // const { direction } = useSwipe(main);
-    // watchEffect(() => {
-    //   console.log(direction.value);
-    // });
+    const { direction, swiping } = useSwipe(main, {
+      beforeStart: (e) => e.preventDefault(),
+    });
+    const route = useRoute();
+    const router = useRouter();
+
+    const push = throttle(() => {
+      const name = (route.name || "first").toString();
+      router.replace(pushMap[name]);
+    }, 500);
+
+    watchEffect(() => {
+      if (swiping.value && direction.value === "left") {
+        console.log("下一页");
+        push();
+      }
+    });
     return () => (
       <>
         <div class={s.wrapper}>
