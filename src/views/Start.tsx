@@ -3,6 +3,7 @@ import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
+import { Navbar } from "../shared/Navbar";
 import s from "./start.module.scss";
 export const Start = defineComponent({
   setup: (props, content) => {
@@ -12,7 +13,14 @@ export const Start = defineComponent({
 
     return () => (
       <div>
-        <nav>menu</nav>
+        <nav>
+          <Navbar>
+            {{
+              default: "蛋黄记账",
+              icon: <Icon name="menu" class={s.navIcon} />,
+            }}
+          </Navbar>
+        </nav>
         <Center class={s.logo_wrapper}>
           <Icon name="logo" class={s.logo}></Icon>
         </Center>
