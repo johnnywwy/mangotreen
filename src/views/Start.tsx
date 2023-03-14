@@ -26,7 +26,7 @@ export const Start = defineComponent({
         </Center>
         <div class={s.button_wrapper}>
           <Button class={s.button} onClick={onClick}>
-            123456
+            开始记账
           </Button>
         </div>
         <FloatButton></FloatButton>
