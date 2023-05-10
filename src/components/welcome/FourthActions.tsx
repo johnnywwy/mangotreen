@@ -2,7 +2,7 @@ import { FunctionalComponent } from "vue";
 import { RouterLink } from "vue-router";
 import s from "./Welcome.module.scss";
 
-export const ForthActions: FunctionalComponent = () => (
+export const FourthActions: FunctionalComponent = () => (
   <div class={s.actions}>
     <RouterLink class={s.fake} to="/start">
       跳过
@@ -13,4 +13,4 @@ export const ForthActions: FunctionalComponent = () => (
     </RouterLink>
   </div>
 );
-ForthActions.displayName = "ForthActions";
+FourthActions.displayName = "FourthActions";

@@ -2,7 +2,7 @@ import s from "./Welcome.module.scss";
 import { RouterLink } from "vue-router";
 import { FunctionalComponent } from "vue";
 
-export const Forth: FunctionalComponent = () => (
+export const Fourth: FunctionalComponent = () => (
   <div class={s.card}>
     <svg>
       <use xlinkHref="#cloud"></use>
@@ -14,4 +14,4 @@ export const Forth: FunctionalComponent = () => (
   </div>
 );
 
-Forth.displayName = "Forth";
+Fourth.displayName = "Fourth";
