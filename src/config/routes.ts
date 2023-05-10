@@ -11,10 +11,13 @@ import { SecondActions } from "../components/welcome/SecondActions";
 import { Third } from "../components/welcome/Third";
 import { ThirdActions } from "../components/welcome/ThirdActions";
 
-import { Forth } from "../components/welcome/Forth";
-import { ForthActions } from "../components/welcome/ForthActions";
+import { Fourth } from "../components/welcome/Fourth";
+import { FourthActions } from "../components/welcome/FourthActions";
 
-import { Start } from "../views/Start";
+import { StartPage } from "../views/StartPage";
+import { ItemPage } from "../views/ItemPage";
+import { ItemList } from "../components/Item/ItemList";
+import { ItemCreate } from "../components/Item/ItemCreate";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
@@ -41,9 +44,13 @@ export const routes: RouteRecordRaw[] = [
       {
         path: "4",
         name: "Forth",
-        components: { main: Forth, footer: ForthActions },
+        components: { main: Fourth, footer: FourthActions },
       },
     ],
   },
-  { path: "/start", component: Start, name: "start" },
+  { path: "/start", component: StartPage, name: "start" },
+  { path: "/item", component: ItemPage,children:[
+    { path: "", component: ItemList, name: "ItemList" },
+    { path: "create", component: ItemCreate, name: "ItemCreate" },
+  ] },
 ];

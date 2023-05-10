@@ -4,8 +4,9 @@ import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
 import { Navbar } from "../shared/Navbar";
-import s from "./start.module.scss";
-export const Start = defineComponent({
+import s from "./startPage.module.scss";
+import { RouterLink } from "vue-router";
+export const StartPage = defineComponent({
   setup: (props, content) => {
     const onClick = () => {
       console.log("hi");
@@ -25,11 +26,15 @@ export const Start = defineComponent({
           <Icon name="logo" class={s.logo}></Icon>
         </Center>
         <div class={s.button_wrapper}>
-          <Button class={s.button} onClick={onClick}>
-            开始记账
-          </Button>
+          <RouterLink to={"/item/create"}>
+            <Button class={s.button} onClick={onClick}>
+              开始记账
+            </Button>
+          </RouterLink>
         </div>
-        <FloatButton></FloatButton>
+        <RouterLink to={"/item/create"}>
+          <FloatButton></FloatButton>
+        </RouterLink>
       </div>
     );
   },
