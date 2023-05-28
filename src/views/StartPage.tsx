@@ -10,18 +10,20 @@ import { MainLayout } from "../layouts/MainLayout";
 import { OverLay } from "../shared/OverLay";
 export const StartPage = defineComponent({
   setup: (props, content) => {
-    const overLayVisible = ref(false); 
+    const overLayVisible = ref(false);
     const onClickMenu = () => {
       console.log("click");
-      
-      overLayVisible.value = !overLayVisible.value
+
+      overLayVisible.value = !overLayVisible.value;
     };
 
     return () => (
       <MainLayout>
         {{
           title: () => "蛋黄记账",
-          icon: ()=> <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />,
+          icon: () => (
+            <Icon name="menu" class={s.navIcon} onClick={onClickMenu} />
+          ),
           default: () => (
             <>
               <Center class={s.logo_wrapper}>
@@ -34,8 +36,10 @@ export const StartPage = defineComponent({
               </div>
               <RouterLink to={"/item/create"}>
                 <FloatButton></FloatButton>
-              </RouterLink>
-              {overLayVisible.value && <OverLay />}
+              </RouterLink> 
+              {overLayVisible.value && (
+                <OverLay onClose={() => (overLayVisible.value = false)} />
+              )}
             </>
           ),
         }}
