@@ -16,7 +16,7 @@ export const OverLay = defineComponent({
     const onClickSignIn = () => {};
 
     return () => (
-      <>
+      <div>
         <div class={s.mask} onClick={close}></div>
         <div class={s.overlay}>
           <section class={s.currentUser} onClick={onClickSignIn}>
@@ -46,7 +46,7 @@ export const OverLay = defineComponent({
             </ul>
           </nav>
         </div>
-      </>
+      </div>
     );
   },
 });

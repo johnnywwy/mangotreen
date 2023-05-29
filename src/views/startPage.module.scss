@@ -18,3 +18,13 @@
   position: relative;
   top: 0px;
 }
+
+.fade_enter_active,
+.fade_leave_active {
+  transition: opacity 0.5s ease;
+}
+
+.fade_enter_from,
+.fade_leave_to {
+  opacity: 0;
+}

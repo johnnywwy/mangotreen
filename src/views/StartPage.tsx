@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { Transition, defineComponent, ref } from "vue";
 import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
@@ -36,9 +36,18 @@ export const StartPage = defineComponent({
               </div>
               <RouterLink to={"/item/create"}>
                 <FloatButton></FloatButton>
-              </RouterLink> 
+              </RouterLink>
+
               {overLayVisible.value && (
+                // <Transition
+                //   name="fade"
+                //   enterActiveClass="animated fadeIn faster"
+                //   leaveActiveClass="animated fadeOut faster"
+                //   enterFromClass="opacity-0"
+                //   leaveToClass="opacity-0"
+                // >
                 <OverLay onClose={() => (overLayVisible.value = false)} />
+                // </Transition>
               )}
             </>
           ),
