@@ -37,17 +37,18 @@ export const StartPage = defineComponent({
               <RouterLink to={"/item/create"}>
                 <FloatButton></FloatButton>
               </RouterLink>
-
               {overLayVisible.value && (
-                // <Transition
-                //   name="fade"
-                //   enterActiveClass="animated fadeIn faster"
-                //   leaveActiveClass="animated fadeOut faster"
-                //   enterFromClass="opacity-0"
-                //   leaveToClass="opacity-0"
-                // >
-                <OverLay onClose={() => (overLayVisible.value = false)} />
-                // </Transition>
+                <Transition
+                  enterActiveClass={s.fade_enter_active}
+                  leaveActiveClass={s.fade_leave_active}
+                  enterFromClass={s.fade_enter_from}
+                  leaveToClass={s.fade_leave_to}
+                >
+                  <OverLay
+                    class={s.one}
+                    onClose={() => (overLayVisible.value = false)}
+                  />
+                </Transition>
               )}
             </>
           ),
