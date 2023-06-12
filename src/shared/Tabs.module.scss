@@ -1,0 +1,22 @@
+.tabs {
+  background: pink;
+  width: 100%;
+  &_nav {
+    // display: flex;
+    // background: #000;
+    // width: 100vw;
+    // justify-content: center;
+    // align-items: center;
+    > li {
+      &.selected {
+        background: red;
+      }
+    }
+  }
+}
+
+// .tabs_nav {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
