@@ -12,17 +12,17 @@ export const Tabs = defineComponent({
   },
   setup: (props, content) => {
     return () => {
-      const array = content.slots.default?.();
-      if (!array) return () => null;
-      for (let i = 0; i < array.length; i++) {
-        if (array[i].type === "Tab") {
+      const tabs = content.slots.default?.();
+      if (!tabs) return () => null;
+      for (let i = 0; i < tabs.length; i++) {
+        if (tabs[i].type === "Tab") {
           throw new Error("<Tabs> 组件的子组件必须是 <Tab>");
         }
       }
       return (
         <div class={s.tabs}>
           <ol class={s.tabs_nav}>
-            {array.map((item) => (
+            {tabs.map((item) => (
               <li
                 class={item.props?.name === props.selected ? s.selected : ""}
                 onClick={() => {
@@ -34,9 +34,7 @@ export const Tabs = defineComponent({
               </li>
             ))}
           </ol>
-          <div>
-            {array.find((item) => item.props?.name === props.selected)}
-          </div>
+          <div>{tabs.find((item) => item.props?.name === props.selected)}</div>
         </div>
       );
     };
