@@ -1,7 +1,18 @@
 .wrapper {
-  background: green;
+  // background: green;
 }
 .navIcon {
   width: 30px;
   height: 30px;
+}
+
+.inputPad_wrapper {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: var(
+    --safe-area-inset-bottom
+  ); // 12px on iPhone X, 0px on other devices
+
+  border: 1px solid #ccc;
 }
