@@ -1,3 +1,29 @@
 .wrapper {
-  background: pink;
+  // background;
+  //渐变色
+  background: skyblue;
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    border-top: 1px solid var(--input-pad-button-border-color);
+    // border-left: 1px solid var(--input-pad-button-border-color);
+    > button {
+      // background: blue;
+      border: none;
+      border-right: 1px solid var(--input-pad-button-border-color);
+      border-bottom: 1px solid var(--input-pad-button-border-color);
+      width: 25%;
+      height: 60px;
+      font-size: 20px;
+      // background: transparent;
+      background: rgba(255, 255, 255, 0.7);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+
+      &:nth-child(4n) {
+        border-right: none;
+      }
+    }
+  }
 }
