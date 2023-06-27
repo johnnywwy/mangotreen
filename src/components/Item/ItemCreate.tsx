@@ -12,7 +12,6 @@ export const ItemCreate = defineComponent({
   },
   setup: (props, content) => {
     const selected = ref("支出");
-    // const onUpdateSelected = (name: string) => (selected.value = name);
 
     return () => (
       <MainLayout>
@@ -21,11 +20,7 @@ export const ItemCreate = defineComponent({
           icon: () => <Icon name="left" class={s.navIcon}></Icon>,
           default: () => (
             <>
-              <Tabs
-                selected={selected.value}
-                // onUpdateSelected={(name) => (selected.value = name)}
-                v-model:selected={selected.value}
-              >
+              <Tabs selected={selected.value} v-model:selected={selected.value}>
                 <Tab name="支出">icon 列表1</Tab>
                 <Tab name="收入">icon 列表2</Tab>
               </Tabs>
