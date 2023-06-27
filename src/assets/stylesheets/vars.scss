@@ -4,6 +4,9 @@
   --welcome-linear-start: #f6d465f0;
   --welcome-linear-end: #fda085;
 
+  // 文字颜色
+  --text-color: #333;
+
   --welcome-nav-height: 64px;
   --welcome-nav-gap: 8px;
   --z-index-bottom-nav: 8;
@@ -39,4 +42,6 @@
 
   // 数字键盘按钮边框色
   --input-pad-button-border-color: #cbcbcb;
+  // 数字键盘背景色
+  --input-pad-button-bg: #fecbbd;
 }

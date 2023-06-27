@@ -21,18 +21,18 @@ export const InputPad = defineComponent({
       { text: "7", onClick: () => {} },
       { text: "8", onClick: () => {} },
       { text: "9", onClick: () => {} },
+      { text: "确定", onClick: () => {} },
       { text: "0", onClick: () => {} },
       { text: ".", onClick: () => {} },
-      { text: "确定", onClick: () => {} },
     ];
     return () => (
       <div class={s.wrapper}>
-        <div>
-          <span class={s.note}>
-            <Icon name="logo"></Icon>
+        <div class={s.dateAndAmount}>
+          <span class={s.date}>
+            <Icon name="logo" class={s.icon}></Icon>
             <span>2023-06-24</span>
           </span>
-          <span class={s.amount}>数字</span>
+          <span class={s.amount}>4999.23</span>
         </div>
         <div class={s.buttons}>
           {buttons.map((item) => (

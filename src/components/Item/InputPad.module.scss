@@ -1,28 +1,71 @@
 .wrapper {
-  // background;
-  //渐变色
-  background: skyblue;
+  background: var(--input-pad-button-bg);
 
+  .dateAndAmount {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+
+    > .date {
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      color: var(--text-color);
+
+      > .icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+      }
+    }
+    > .amount {
+      font-size: 20px;
+      font-family: monospace;
+    }
+  }
   .buttons {
     display: flex;
     flex-wrap: wrap;
     border-top: 1px solid var(--input-pad-button-border-color);
+    margin: 0 1%;
+
     // border-left: 1px solid var(--input-pad-button-border-color);
     > button {
       // background: blue;
       border: none;
       border-right: 1px solid var(--input-pad-button-border-color);
       border-bottom: 1px solid var(--input-pad-button-border-color);
-      width: 25%;
+      width: 23%;
       height: 60px;
       font-size: 20px;
       // background: transparent;
       background: rgba(255, 255, 255, 0.7);
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
+      color: var(--text-color);
+
+      margin: 1%;
+      border-radius: 5px;
+      // 阴影
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
 
       &:nth-child(4n) {
         border-right: none;
+      }
+      &:nth-last-child(-n + 2) {
+        border-bottom: none;
+      }
+      &:nth-last-child(3) {
+        // 浮动定位
+        position: absolute;
+        right: 1%;
+        bottom: 0;
+        width: 22.5%;
+        height: 128px;
+      }
+      &:nth-last-child(2) {
+        width: 48%;
       }
     }
   }
