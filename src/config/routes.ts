@@ -16,8 +16,12 @@ import { FourthActions } from "../components/welcome/FourthActions";
 
 import { StartPage } from "../views/StartPage";
 import { ItemPage } from "../views/ItemPage";
-import { ItemList } from "../components/Item/ItemList";
-import { ItemCreate } from "../components/Item/ItemCreate";
+import { ItemList } from "../components/item/ItemList";
+import { ItemCreate } from "../components/item/ItemCreate";
+
+import { TagCreate } from "../components/tag/TagCreate";
+import { TagEdit } from "../components/tag/TagEdit";
+import { TagPage } from "../views/TagPage";
 
 export const routes: RouteRecordRaw[] = [
   { path: "/", redirect: "/welcome" },
@@ -57,4 +61,12 @@ export const routes: RouteRecordRaw[] = [
       { path: "create", component: ItemCreate, name: "ItemCreate" },
     ],
   },
+  {
+    path: "/tag",
+    component: TagPage,
+    children: [
+      { path: ":id", component: TagEdit, name: "TagEdit" },
+      { path: "create", component: TagCreate, name: "TagCreate" },
+    ],
+  }
 ];

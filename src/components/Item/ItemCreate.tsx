@@ -4,6 +4,7 @@ import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Tabs, Tab } from "../../shared/Tabs";
 import { InputPad } from "./InputPad";
+import { useRouter } from "vue-router";
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -12,12 +13,20 @@ export const ItemCreate = defineComponent({
   },
   setup: (props, content) => {
     const selected = ref("支出");
-
+    const router = useRouter();
     return () => (
       <MainLayout>
         {{
           title: () => "记一笔",
-          icon: () => <Icon name="left" class={s.navIcon}></Icon>,
+          icon: () => (
+            <Icon
+              name="left"
+              class={s.navIcon}
+              onClick={() => {
+                router.back();
+              }}
+            ></Icon>
+          ),
           default: () => (
             <>
               <Tabs selected={selected.value} v-model:selected={selected.value}>
