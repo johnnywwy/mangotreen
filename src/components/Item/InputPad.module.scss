@@ -19,9 +19,9 @@
       color: var(--date-text-color);
 
       > .icon {
-        width: 24px;
-        height: 24px;
-        margin-right: 10px;
+        width: 22px;
+        height: 22px;
+        margin-right: 8px;
       }
     }
     > .amount {
@@ -69,9 +69,13 @@
         bottom: 0;
         width: 22.5%;
         height: 128px;
+        background: #f79e85;
       }
       &:nth-last-child(2) {
         width: 48%;
+      }
+      &:nth-child(n):active {
+        background: var(--input-pad-button-active-bg);
       }
     }
   }
