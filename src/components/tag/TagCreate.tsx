@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, toRaw } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Button } from "../../shared/Button";
 import { Icon } from "../../shared/Icon";
@@ -15,14 +15,44 @@ export const TagCreate = defineComponent({
       name: "",
       sign: "",
     });
+
+    //提交表单
+    const onSubmit = (e: Event) => {
+      e.preventDefault();
+
+      const rules = [
+        {
+          key: "name",
+          required: true,
+          message: "必填",
+        },
+        {
+          key: "name",
+          pattern: /^.{1,4}$/,
+          message: "最多 1 ～ 4 个字符",
+        },
+        {
+          key: "sign",
+          required: true,
+        },
+      ];
+      const errors = validate(formData, rules);
+
+      // errors = {
+      //   name : ['错误1','错误2'],
+      //   sign : ['错误3','错误4'],
+      // }
+
+      console.log(toRaw(formData));
+    };
+
     return () => (
       <MainLayout>
         {{
           title: () => "新建标签",
           icon: () => <Icon name="left" class={s.icon} onClick={() => {}} />,
           default: () => (
-            <form class={s.form}>
-              |{formData.name}|
+            <form class={s.form} onSubmit={onSubmit}>
               <div class={s.formRow}>
                 <label class={s.formLabel}>
                   <span class={s.formItem_name}>标签名</span>
@@ -44,7 +74,7 @@ export const TagCreate = defineComponent({
                     <EmojiSelected
                       v-model={formData.sign}
                       class={[s.formItem, s.emojiList, s.error]}
-                    ></EmojiSelected>
+                    />
                   </div>
                   <div class={s.formItem_errorHint}>
                     <span>必填</span>
