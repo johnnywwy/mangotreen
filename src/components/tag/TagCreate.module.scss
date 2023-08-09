@@ -41,7 +41,16 @@
     margin-top: 4px;
     color: var(--error-color);
     font-size: 12px;
+    &_text {
+      display: block;
+      height: 16px;
+    }
   }
+  // &_errorText {
+  //   height: 16px;
+  //   background: pink;
+  //   line-height: 1.5;
+  // }
 }
 
 .button {
