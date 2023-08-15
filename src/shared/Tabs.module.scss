@@ -1,12 +1,17 @@
 .tabs {
   // background: pink;
   width: 100%;
+  position: relative;
+
   &_nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
     color: var(--navbar-text);
+    position: sticky;
+    z-index: 1;
+    top: 0;
     > li {
       width: 50%;
       padding: 12px 0;

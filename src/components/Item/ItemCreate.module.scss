@@ -1,5 +1,13 @@
 .wrapper {
   // background: green;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 88px);
+}
+.tabs {
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: auto;
 }
 .navIcon {
   width: 30px;
@@ -7,12 +15,59 @@
 }
 
 .inputPad_wrapper {
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: var(
+  border: 1px solid red;
+  // position: fixed;
+  // width: 100%;
+  // left: 0;
+  // bottom: var(
+  //   --safe-area-inset-bottom
+  // ); // 12px on iPhone X, 0px on other devices
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding-bottom: var(
     --safe-area-inset-bottom
-  ); // 12px on iPhone X, 0px on other devices
+  ); // 12px on iPhone X, 0px on other devices;
+}
 
-  // border: 1px solid #ccc;
+.tags_wrapper {
+  // border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 5px;
+}
+
+.createTag {
+  fill: var(--main);
+}
+.tag {
+  // border: 1px solid blue;
+  // position: relative;
+  width: 20vw;
+  // position: sticky;
+
+  height: calc(20vw * 1.14);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .sign {
+    width: 12vw;
+    height: 12vw;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-bg);
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .name {
+    font-size: 14px;
+    margin-top: 4px;
+  }
+  &.selected {
+    .sign {
+      border: 1px solid var(--tag-select-border);
+    }
+  }
 }

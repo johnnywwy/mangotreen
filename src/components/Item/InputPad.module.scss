@@ -11,6 +11,7 @@
     border-top: 1px solid var(--input-pad-button-border-color);
     // 上边框内阴影
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    background: var(--overlay-bg);
 
     > .date {
       font-size: 18px;
@@ -66,7 +67,7 @@
         // 浮动定位
         position: absolute;
         right: 1%;
-        bottom: 0;
+        bottom: calc(var(--safe-area-inset-bottom) + 3px);
         width: 22.5%;
         height: 128px;
         background: #f79e85;
