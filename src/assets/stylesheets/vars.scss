@@ -70,6 +70,15 @@
   --tag-bg: #efefef;
   --tag-select-border: #fa7a11;
 
-  //
+  //主题色
   --main: #f96f12;
+
+  // 金额汇总
+  --total-bg: #252A43;
+  --total-text: white;
+  --total-income: #FE7275;
+  --total-expenses: #53A867;
+
+  --list-tag-text: #333;
+  --list-amount-text: var(--amount-text-color);
 }

@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
@@ -8,17 +8,34 @@ import s from './ItemList.module.scss';
 import { ItemSummary } from "./ItemSummary";
 
 export const ItemList = defineComponent({
-  props: {
-    name: {
-      type: String as PropType<string>,
-    },
-  },
-
   setup: (props, content) => {
+    // 默认选中本月
     const refSelected = ref("本月")
-    const t = new Time(new Date(2000, 0, 31, 0, 0, 0))
-    console.log(t.add(1, "month").getRaw());
     
+    // 获取当前时间
+    const time = new Time()
+
+    // 自定义时间
+    const customTime = reactive({
+      start: new Time().format(),
+      end: new Time().format()
+    })
+
+    // 本月、上月、今年
+    const timeList = [
+      {
+        start: time.firstDayOfMonth().format(),
+        end: time.lastDayOfMonth().format()
+      },
+      {
+        start: time.add(-1,'month').firstDayOfMonth().format(),
+        end: time.add(-1,'month').lastDayOfMonth().format()
+      },
+      {
+        start: time.firstDayOfYear().format(),
+        end: time.lastDayOfYear().format()
+      }
+    ]
     return () => (
       <MainLayout>
         {{
@@ -32,16 +49,28 @@ export const ItemList = defineComponent({
           default: () => (
             <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value} >
               <Tab name="本月">
-                <ItemSummary startData="2023-8-23" endData="2023-12-31"/>
+                <ItemSummary 
+                  startData={timeList[0].start} 
+                  endData={timeList[0].end}
+                />
               </Tab>
               <Tab name="上月">
-                <ItemSummary startData="2023-8-23" endData="2023-12-31"/>
+                <ItemSummary 
+                  startData={timeList[1].start} 
+                  endData={timeList[1].end}
+                />
               </Tab>
               <Tab name="今年">
-                <ItemSummary startData="2023-8-23" endData="2023-12-31"/>
+                <ItemSummary 
+                  startData={timeList[2].start} 
+                  endData={timeList[2].end}
+                />
               </Tab>
               <Tab name="自定义时间">
-                <ItemSummary startData="2023-8-23" endData="2023-12-31"/>
+                <ItemSummary 
+                  startData={customTime.start} 
+                  endData={customTime.start}
+                />
               </Tab>
             </Tabs>
           )
