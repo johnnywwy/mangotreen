@@ -6,4 +6,21 @@
   font-size: var(--button-font-size);
   border-radius: var(--button-radius);
   height: var(--button-height);
+
+  &.primary {
+    border: 1px solid var(--button-primary-bg);
+    background: var(--button-primary-bg);
+  }
+  &.danger {
+    border: 1px solid var(--button-danger-bg);
+    background: var(--button-danger-bg);
+  }
+  &.success {
+    border: 1px solid var(--button-success-bg);
+    background: var(--button-success-bg);
+  }
+  &.warning {
+    border: 1px solid var(--button-warning-bg);
+    background: var(--button-warning-bg);
+  }
 }

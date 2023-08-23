@@ -56,3 +56,14 @@
 .button {
   width: 100%;
 }
+
+.actions{
+  padding: 0 16px 16px 16px;
+  display: flex;
+  justify-content: space-between;
+
+  .removeTag, .removeTagAndItem {
+    width: calc(50% - 8px);
+  }
+
+}
