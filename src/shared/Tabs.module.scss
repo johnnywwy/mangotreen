@@ -1,5 +1,4 @@
 .tabs {
-  // background: pink;
   width: 100%;
   position: relative;
 
@@ -12,16 +11,14 @@
     position: sticky;
     z-index: 1;
     top: 0;
+    background: var(--navbar-bg-end);
+
     > li {
-      width: 50%;
+      flex-grow: 1;
+      flex-shrink: 0;
       padding: 12px 0;
-      background: var(--navbar-bg-end);
-      // border: 1px solid red;
 
       &.selected {
-        // background: #fe9f85;
-        // font-size: 24px;
-
         position: relative;
         &::after {
           content: "";
@@ -37,9 +34,3 @@
     }
   }
 }
-
-// .tabs_nav {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
