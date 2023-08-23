@@ -2,8 +2,8 @@ import { defineComponent, PropType, ref } from "vue";
 import s from "./InputPad.module.scss";
 import { Icon } from "../../shared/Icon";
 import dayjs from "dayjs";
-import { Button, Popup, DatePicker } from "vant";
-import type { DatePickerProps, DatePickerColumnType } from "vant";
+import { Popup, DatePicker } from "vant";
+// import type { DatePickerProps, DatePickerColumnType } from "vant";
 
 export const InputPad = defineComponent({
   props: {
