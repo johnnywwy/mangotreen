@@ -34,22 +34,22 @@ export const FormItem = defineComponent({
   },
   setup: (props, context) => {
     const content = computed(() => {
-        switch (props.type) {
-            case 'text':
-                return <input
-                value={props.modelValue}
-                onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-                class={[s.formItem, s.input, s.error]} />
-            case 'emojiSelect':
-                return <EmojiSelected
-                modelValue={props.modelValue?.toString()}
-                onUpdateModelValue={value => context.emit('update:modelValue', value)}
-                class={[s.formItem, s.emojiList, s.error]} />
-            case 'date':
-              return <input />
-            case undefined:
-              return context.slots.default?.()
-        }
+      switch (props.type) {
+        case 'text':
+          return <input
+            value={props.modelValue}
+            onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
+            class={[s.formItem, s.input, s.error]} />
+        case 'emojiSelect':
+          return <EmojiSelected
+            modelValue={props.modelValue?.toString()}
+            onUpdateModelValue={value => context.emit('update:modelValue', value)}
+            class={[s.formItem, s.emojiList, s.error]} />
+        case 'date':
+          return <input />
+        case undefined:
+          return context.slots.default?.()
+      }
 
     })
 
@@ -62,7 +62,7 @@ export const FormItem = defineComponent({
           <div class={s.formItem_value}>
             {content.value}
           </div>
-          {props.error &&
+          {
             <div class={s.formItem_errorHint}>
               <span>{props.error}</span>
             </div>
