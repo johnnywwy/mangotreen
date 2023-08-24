@@ -1,3 +1,4 @@
+import { Overlay } from "vant";
 import { defineComponent, PropType, reactive, ref } from "vue";
 import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
@@ -9,6 +10,10 @@ import { ItemSummary } from "./ItemSummary";
 
 export const ItemList = defineComponent({
   setup: (props, content) => {
+
+    // 弹出层
+    const refOverlayVisible = ref(false)
+
     // 默认选中本月
     const refSelected = ref("本月")
     
@@ -47,6 +52,7 @@ export const ItemList = defineComponent({
             />
           ),
           default: () => (
+            <>
             <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value} >
               <Tab name="本月">
                 <ItemSummary 
@@ -73,6 +79,18 @@ export const ItemList = defineComponent({
                 />
               </Tab>
             </Tabs>
+            <Overlay show={refOverlayVisible.value}>
+              <div class={s.overlay_inner}>
+                <header>
+                  请选择时间
+                </header>
+                <main>
+                  <div>开始时间</div>
+                  <div>结束时间</div>
+                </main>
+              </div>
+            </Overlay>
+            </>
           )
         }}
       </MainLayout>
