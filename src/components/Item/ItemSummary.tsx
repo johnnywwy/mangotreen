@@ -18,9 +18,18 @@ export const ItemSummary = defineComponent({
     return () => (
       <div class={s.wrapper}>
         <ul class={s.total}>
-          <li><span>收入</span><span>128</span></li>
-          <li><span>支出</span><span>99</span></li>
-          <li><span>净收入</span><span>39</span></li>
+          <li>
+            <span>收入</span>
+            <span>128</span>
+          </li>
+          <li>
+            <span>支出</span>
+            <span>99</span>
+          </li>
+          <li>
+            <span>净收入</span>
+            <span>39</span>
+          </li>
         </ul>
         <ol class={s.list}>
           <li>
