@@ -64,7 +64,8 @@
   --input-shadow: rgba(0, 0, 0, 0.25);
   --error-color: #e10505;
   --emoji-nav-text: #999;
-  --emoji-nav-text-selected: #333;
+  --emoji-nav-text-selected: #333; // 选中的emoji 导航文字颜色
+  --emoji-item-icon-selected: #f9973ca1; // 选中的emoji背景色
 
   // 标签
   --tag-bg: #efefef;
