@@ -33,6 +33,12 @@
         }
     }
 
+    &.emojiList {
+        &.error {
+            border-color: var(--error-color);
+        }
+    }
+
     &_name {}
 
     &_value {
@@ -42,6 +48,15 @@
         >* {
             flex-grow: 1;
         }
+
+        &.error {
+            border-color: var(--error-color);
+        }
+    }
+
+    &_error {
+        background: pink;
+        border-color: var(--error-color);
     }
 
     &_errorHint {
@@ -52,3 +67,10 @@
         // background: pink;
     }
 }
+
+// .fuvk {
+//     // background: pink;
+//     border: 1px solid var(--error-color);
+//     border-radius: var(--input-radius);
+
+// }

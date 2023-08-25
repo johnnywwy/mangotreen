@@ -40,14 +40,14 @@ export const FormItem = defineComponent({
           return <input
             value={props.modelValue}
             onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
-            class={[s.formItem, s.input, s.error]} />
+            class={[s.formItem, s.input]} />
         case 'emojiSelect':
           return <EmojiSelected
             modelValue={props.modelValue?.toString()}
             onUpdateModelValue={value => context.emit('update:modelValue', value)}
-            class={[s.formItem, s.emojiList, s.error]} />
+            class={[s.formItem, s.emojiList]} />
         case 'date':
-          return <input />
+          return <input/>
         case undefined:
           return context.slots.default?.()
       }

@@ -1,7 +1,6 @@
 import { defineComponent, reactive } from "vue";
 import s from "./Tag.module.scss";
 import { MainLayout } from "../../layouts/MainLayout";
-import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Rules, validate } from "../../shared/validate";
 import { Button } from "../../shared/Button";
 import { Icon } from "../../shared/Icon";
@@ -49,7 +48,7 @@ export const TagEdit = defineComponent({
       <MainLayout>
         {{
           title: () => "编辑标签",
-          icon: () => <Icon name="left" class={s.icon} onClick={() => { }} />,
+          icon: () => <Icon name="left" onClick={() => { }} />,
           default: () => (
             <>
               <TagForm />
