@@ -1,4 +1,3 @@
-import { badgeProps } from "vant";
 import { computed, defineComponent, PropType } from "vue";
 import { EmojiSelected } from "./EmojiSelected";
 import s from "./Form.module.scss";
@@ -31,6 +30,10 @@ export const FormItem = defineComponent({
       },
       error: {
         type: String
+      },
+      border: {
+        type: Boolean,
+        default: true
       }
   },
   setup: (props, context) => {
@@ -45,7 +48,7 @@ export const FormItem = defineComponent({
           return <EmojiSelected
             modelValue={props.modelValue?.toString()}
             onUpdateModelValue={value => context.emit('update:modelValue', value)}
-            class={[s.formItem, s.emojiList]} />
+            class={[s.formItem]} />
         case 'date':
           return <input/>
         case undefined:
@@ -60,7 +63,12 @@ export const FormItem = defineComponent({
            {props.label &&
              <span class={s.formItem_name}>{props.label}</span>
            }
-           <div class={s.formItem_value}>
+           {/* {props.error == '' ? '1' : '2'} */}
+           <div class={[
+            s.formItem_value, 
+            props.border && s.formItem_value_error, 
+            props.error && s.fuvk]
+            }>
              {content.value}
            </div>
            {
