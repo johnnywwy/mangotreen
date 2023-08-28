@@ -1,7 +1,8 @@
 import { Overlay } from "vant";
 import { defineComponent, PropType, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
 import { MainLayout } from "../../layouts/MainLayout";
+import { Button } from "../../shared/Button";
+import { Form, FormItem } from "../../shared/Form";
 import { Icon } from "../../shared/Icon";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { Time } from "../../shared/time";
@@ -12,7 +13,12 @@ export const ItemList = defineComponent({
   setup: (props, content) => {
 
     // 弹出层
-    const refOverlayVisible = ref(false)
+    const refOverlayVisible = ref(true)
+
+    const onSubmitCustomTime = (e:Event) => {
+      e.preventDefault()
+      refOverlayVisible.value=false
+    }
 
     // 默认选中本月
     const refSelected = ref("本月")
@@ -79,14 +85,23 @@ export const ItemList = defineComponent({
                 />
               </Tab>
             </Tabs>
-            <Overlay show={refOverlayVisible.value}>
+            <Overlay show={refOverlayVisible.value} class={s.overlay}>
               <div class={s.overlay_inner}>
                 <header>
                   请选择时间
+                  {refOverlayVisible.value+'123'}
                 </header>
                 <main>
-                  <div>开始时间</div>
-                  <div>结束时间</div>
+                  <Form onSubmit={onSubmitCustomTime}>
+                    <FormItem label="开始时间" v-model={customTime.start} type='date'></FormItem>
+                    <FormItem label="结束时间" v-model={customTime.end} type='date'></FormItem>
+                    <FormItem class={s.actions} border={false}>
+                      <div>
+                        <button type="button">取消</button>
+                        <button type="submit">确认</button>
+                      </div>
+                    </FormItem>
+                  </Form>
                 </main>
               </div>
             </Overlay>
