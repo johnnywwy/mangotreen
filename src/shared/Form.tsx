@@ -8,7 +8,10 @@ export const Form = defineComponent({
   props: {
     onSubmit: {
       type: Function as PropType<(e: Event) => void>,
-    }
+    },
+    // onCancel: {
+    //   type: Function as PropType<(e: Event) => void>,
+    // }
   },
   setup: (props, content) => {
       return () => (

@@ -13,6 +13,7 @@ export const Tabs = defineComponent({
       type: Function as PropType<(name: string) => void>,
     },
   },
+  emits: ["update:selected"],
   setup: (props, content) => {
     return () => {
       const tabs = content.slots.default?.();

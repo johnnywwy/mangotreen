@@ -1,5 +1,5 @@
 import { Overlay } from "vant";
-import { defineComponent, PropType, reactive, ref } from "vue";
+import { defineComponent, PropType, reactive, ref, watchEffect } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Button } from "../../shared/Button";
 import { Form, FormItem } from "../../shared/Form";
@@ -13,12 +13,14 @@ export const ItemList = defineComponent({
   setup: (props, content) => {
 
     // 弹出层
-    const refOverlayVisible = ref(true)
+    const refOverlayVisible = ref(false)
 
+    // 点击确认按钮
     const onSubmitCustomTime = (e:Event) => {
       e.preventDefault()
       refOverlayVisible.value=false
     }
+
 
     // 默认选中本月
     const refSelected = ref("本月")
@@ -47,6 +49,13 @@ export const ItemList = defineComponent({
         end: time.lastDayOfYear().format()
       }
     ]
+
+    watchEffect(() => {
+      if(refSelected.value === '自定义时间'){
+        console.log('123456789');   
+        refOverlayVisible.value = true     
+      }
+    })
     return () => (
       <MainLayout>
         {{
@@ -59,7 +68,9 @@ export const ItemList = defineComponent({
           ),
           default: () => (
             <>
-            <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value} >
+            <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value} 
+              onUpdate:selected={()=>{refOverlayVisible.value=true}}
+            >
               <Tab name="本月">
                 <ItemSummary 
                   startData={timeList[0].start} 
@@ -89,7 +100,6 @@ export const ItemList = defineComponent({
               <div class={s.overlay_inner}>
                 <header>
                   请选择时间
-                  {refOverlayVisible.value+'123'}
                 </header>
                 <main>
                   <Form onSubmit={onSubmitCustomTime}>
@@ -97,7 +107,7 @@ export const ItemList = defineComponent({
                     <FormItem label="结束时间" v-model={customTime.end} type='date'></FormItem>
                     <FormItem class={s.actions} border={false}>
                       <div>
-                        <button type="button">取消</button>
+                        <button type="button"  onClick={()=> refOverlayVisible.value = false}>取消</button>
                         <button type="submit">确认</button>
                       </div>
                     </FormItem>
