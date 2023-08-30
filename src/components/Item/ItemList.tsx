@@ -1,9 +1,10 @@
 import { Overlay } from "vant";
-import { defineComponent, PropType, reactive, ref, watchEffect } from "vue";
+import { defineComponent, reactive, ref, Transition, watchEffect } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Button } from "../../shared/Button";
 import { Form, FormItem } from "../../shared/Form";
 import { Icon } from "../../shared/Icon";
+import { OverLay } from "../../shared/OverLay";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { Time } from "../../shared/time";
 import s from './ItemList.module.scss';
@@ -12,8 +13,11 @@ import { ItemSummary } from "./ItemSummary";
 export const ItemList = defineComponent({
   setup: (props, content) => {
 
-    // 弹出层
+    // 自定义时间弹出层
     const refOverlayVisible = ref(false)
+
+    // 标签弹出层
+    const overLayVisible = ref(false);
 
     // 点击确认按钮
     const onSubmitCustomTime = (e:Event) => {
@@ -50,12 +54,28 @@ export const ItemList = defineComponent({
       }
     ]
 
+    // 监听自定义时间
     watchEffect(() => {
       if(refSelected.value === '自定义时间'){
         console.log('123456789');   
         refOverlayVisible.value = true     
       }
     })
+
+    // 
+    const onSelect=(value:string)=>{
+      console.log('value1111111111',value);
+      
+      if(value==='自定义时间'){
+        refOverlayVisible.value = true
+      }
+    }
+
+    const onClickMenu = () => {
+      console.log("click");
+
+      overLayVisible.value = !overLayVisible.value;
+    };
     return () => (
       <MainLayout>
         {{
@@ -64,12 +84,13 @@ export const ItemList = defineComponent({
             <Icon
               name="menu"
               class={s.navIcon}
+              onClick={onClickMenu}
             />
           ),
           default: () => (
             <>
             <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value} 
-              onUpdate:selected={()=>{refOverlayVisible.value=true}}
+              onUpdate:selected={onSelect}
             >
               <Tab name="本月">
                 <ItemSummary 
@@ -115,6 +136,19 @@ export const ItemList = defineComponent({
                 </main>
               </div>
             </Overlay>
+            {overLayVisible.value && (
+                <Transition
+                  enterActiveClass={s.fade_enter_active}
+                  leaveActiveClass={s.fade_leave_active}
+                  enterFromClass={s.fade_enter_from}
+                  leaveToClass={s.fade_leave_to}
+                >
+                  <OverLay
+                    class={s.one}
+                    onClose={() => (overLayVisible.value = false)}
+                  />
+                </Transition>
+              )}
             </>
           )
         }}
