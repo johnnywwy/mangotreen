@@ -126,7 +126,7 @@ export const ItemList = defineComponent({
                   <Form onSubmit={onSubmitCustomTime}>
                     <FormItem label="开始时间" v-model={customTime.start} type='date'></FormItem>
                     <FormItem label="结束时间" v-model={customTime.end} type='date'></FormItem>
-                    <FormItem class={s.actions} border={false}>
+                    <FormItem class={s.actions}>
                       <div>
                         <button type="button"  onClick={()=> refOverlayVisible.value = false}>取消</button>
                         <button type="submit">确认</button>
