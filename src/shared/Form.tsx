@@ -61,7 +61,9 @@ export const FormItem = defineComponent({
             class={[s.formItem, s.emojiList]} />
         case "validationCode":
           return <>
-            <input class={[s.formItem, s.input, s.validationCodeInput]}
+            <input 
+              onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
+              class={[s.formItem, s.input, s.validationCodeInput]}
               placeholder={props.placeholder} />
               <Button class={[s.formItem, s.button, s.validationCodeButton]}>
                 发送验证码
