@@ -31,6 +31,11 @@ export const SignInPage = defineComponent({
           message: "请输入正确的邮箱地址",
           regExp: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+./,
         },
+        // {
+        //   key: "code",
+        //   message: "必填",
+        //   type: "required",
+        // },
         {
           key:"code",
           message: "必填",
@@ -64,14 +69,22 @@ export const SignInPage = defineComponent({
                 </header>
                 <Form onSubmit={onsubmit}>
                     <FormItem label="邮箱地址" 
+                      
                       error={errors.email?.[0]} 
+                      
                       v-model={formData.email} 
+                      
                       placeholder="请输入邮箱地址" 
+                      
                       type="text" />
                     <FormItem label="验证码" 
+                      
                       error={errors.code?.[0]} 
+                      
                       v-model={formData.code} 
+                      
                       placeholder="请输入验证码" 
+                      
                       type="validationCode" />
                     <FormItem class={s.actions}>
                         <Button>登录</Button>
