@@ -21,7 +21,6 @@ export const SignInPage = defineComponent({
 
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
 
-    
     const onsubmit = (e: Event) => {
       e.preventDefault();
       const rules: Rules<typeof formData> = [
@@ -33,17 +32,17 @@ export const SignInPage = defineComponent({
           regExp: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+./,
         },
         {
-          key: "code",
+          key:"code",
           message: "必填",
           type: "required",
-        },
+        }
       ];
       console.log('来了吗');
       
       // 重置错误信息
       Object.assign(errors, {
         email: [],
-        code: ['陈1111'],
+        code:[]
       });
 
       // 验证表单
@@ -64,15 +63,22 @@ export const SignInPage = defineComponent({
                     <h2>蛋黄记账</h2>
                 </header>
                 <Form onSubmit={onsubmit}>
-                    <FormItem label="邮箱地址" error={errors.email?.[0]} v-model={formData.email} placeholder="请输入邮箱地址" type="text" />
-                    <FormItem label="验证码" error={errors.code?.[0]} v-model={formData.code} placeholder="请输入验证码" type="validationCode" />
+                    <FormItem label="邮箱地址" 
+                      error={errors.email?.[0]} 
+                      v-model={formData.email} 
+                      placeholder="请输入邮箱地址" 
+                      type="text" />
+                    <FormItem label="验证码" 
+                      error={errors.code?.[0]} 
+                      v-model={formData.code} 
+                      placeholder="请输入验证码" 
+                      type="validationCode" />
                     <FormItem class={s.actions}>
                         <Button>登录</Button>
                     </FormItem>
                 </Form>
             </div>
            }}
-
         </MainLayout>
     );
   },
