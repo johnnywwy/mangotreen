@@ -26,7 +26,13 @@ export const TimeTabsLayout = defineComponent({
     component:{
         type: Object as PropType<typeof demo>,
         required: true
-    } 
+    },
+    title:{
+      type: String as PropType<string>
+    },
+    icon:{
+      type: String as PropType<string>
+    }
   },
   setup: (props, content) => {
 
@@ -90,12 +96,12 @@ export const TimeTabsLayout = defineComponent({
     return () => (
       <MainLayout>
         {{
-          title: () => "蛋黄记账",
+          title: () => props.title || "蛋黄记账",
           icon: () => (
             <Icon
-              name="menu"
-              class={s.navIcon}
-              onClick={onClickMenu}
+              name= "menu"
+              class= {s.navIcon}
+              onClick= {onClickMenu}
             />
           ),
           default: () => (
