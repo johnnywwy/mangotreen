@@ -13,34 +13,31 @@
 .formItem {
     min-height: var(--input-min-height);
     max-width: 100%;
-    border-radius: var(--input-radius);
-    box-shadow: inset 0 0 3px var(--input-shadow);
-    border: 1px solid red;
-    // border-color: red;
+
 
     &.button {
         width: 100%;
     }
 
-    &.emojiList {
-        border-color: var(--input-border-color);
+    &.input {
+        flex-grow: 1;
+        border: 1px solid var(--input-border-color);
+        border-radius: var(--input-radius);
+        font-size: 18px;
+        font-family: inherit;
+        padding-left: 16px;
+        padding-right: 16px;
+        box-shadow: inset 0 0 3px var(--input-shadow);
 
         &.error {
             border-color: var(--error-color);
         }
     }
 
-    &.input {
-        flex-grow: 1;
-        border-color: var(--input-border-color);
-        font-size: 18px;
-        font-family: inherit;
-        padding-left: 16px;
-        padding-right: 16px;
-
-        &.error {
-            border-color: var(--error-color);
-        }
+    &.select {
+        border: 1px solid var(--input-border-color);
+        border-radius: var(--input-radius);
+        padding: 0 8px;
     }
 
     &.validationCodeInput {
@@ -68,14 +65,7 @@
         color: var(--error-color);
         font-size: 12px;
     }
-
-    &_error {
-        &_fuvk {
-            border-color: var(--error-color) !important;
-        }
-    }
 }
-
 
 
 
@@ -94,86 +84,81 @@
 // .formItem {
 //     min-height: var(--input-min-height);
 //     max-width: 100%;
+//     border-radius: var(--input-radius);
+//     box-shadow: inset 0 0 3px var(--input-shadow);
+//     border: 1px solid red;
+//     // border-color: red;
 
 //     &.button {
 //         width: 100%;
 //     }
 
 //     &.emojiList {
+//         border-color: var(--input-border-color);
+
 //         &.error {
 //             border-color: var(--error-color);
 //         }
 //     }
 
-//     &_name {
-//         font-size: 16px;
+//     &.input {
+//         flex-grow: 1;
+//         border-color: var(--input-border-color);
+//         font-size: 18px;
+//         font-family: inherit;
+//         padding-left: 16px;
+//         padding-right: 16px;
+
+//         &.error {
+//             border-color: var(--error-color);
+//         }
 //     }
+
+//     &.select {
+//         border: 1px solid var(--input-border-color);
+//         border-radius: var(--input-radius);
+//         padding: 0 8px;
+//         flex-grow: 1;
+//     }
+
+//     &.option {
+//         border: 1px solid var(--input-border-color);
+//         border-radius: var(--input-radius);
+//         padding: 0 8px;
+//     }
+
+//     &.validationCodeInput {
+//         flex-grow: 0;
+//         width: 9em;
+//     }
+
+//     &.validationCodeButton {
+//         margin-left: 16px;
+//     }
+
+//     &_name {}
 
 //     &_value {
 //         display: flex;
 //         margin-top: 4px;
-//         // border: 1px solid var(--input-border-color);
 
-//         &_border {
-//             border: 1px solid var(--input-border-color);
-//             border-radius: var(--input-radius);
-//         }
-
-//         .input {
-//             flex-grow: 1;
-//             border: none;
-//             font-size: 18px;
-//             font-family: inherit;
-//             padding-left: 16px;
-//             padding-right: 16px;
-//             box-shadow: inset 0 0 3px var(--input-shadow);
-//             border-radius: var(--input-radius);
-//             // border: 1px solid red;
-
-//             &.error {
-//                 border-color: var(--error-color);
-//             }
-//         }
-
-//         >* {
-//             flex-grow: 1;
-//         }
-
-//         &_error {
-//             // border-color: var(--error-color);
-//             border: 1px solid var(--input-border-color);
-//             border-radius: var(--input-radius);
-//         }
-//     }
-
-//     &_error {
-//         background: pink;
-//         border-color: var(--error-color);
+//         >* {}
 //     }
 
 //     &_errorHint {
 //         margin-top: 4px;
 //         color: var(--error-color);
 //         font-size: 12px;
-//         height: 16px;
-//         // border-color: var(--error-color);
+//     }
 
+//     &_error {
+//         &_fuvk {
+//             border-color: var(--error-color) !important;
+//         }
 //     }
 // }
 
-.fuvk {
-    border-color: var(--error-color) !important;
-}
 
-
-
-// .border {
-//     box-shadow: inset 0 0 3px var(--input-shadow) !important;
-//     border: 1px solid var(--input-border-color) !important;
-//     border-radius: var(--input-radius);
-
-// }
-
-// .margin {
-//     margin-right: 16px;
+// .fuvk {
+//     border-color: var(--error-color) !important;
 // }
