@@ -50,8 +50,10 @@ export const SignInPage = defineComponent({
     }
 
     const onClickSendValidationCode = async () => {
-      const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-      console.log('response', response);
+      console.log('点击验证码按钮了');
+
+      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
+      // console.log('response', response);
 
     }
     return () => (
@@ -74,6 +76,7 @@ export const SignInPage = defineComponent({
                   placeholder="请输入邮箱地址"
                   type="text" />
                 <FormItem label="验证码"
+                  countForm={5}
                   error={errors.code?.[0]}
                   v-model={formData.code}
                   placeholder="请输入验证码"
