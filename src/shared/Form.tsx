@@ -15,39 +15,39 @@ export const Form = defineComponent({
     // }
   },
   setup: (props, content) => {
-      return () => (
-        <form class={s.form} onSubmit={props.onSubmit}>
-            {content.slots.default?.()}
-        </form>
-      );
+    return () => (
+      <form class={s.form} onSubmit={props.onSubmit}>
+        {content.slots.default?.()}
+      </form>
+    );
   },
 });
 
 export const FormItem = defineComponent({
   props: {
     label: {
-        type: String
-      },
-      modelValue: {
-        type: [String, Number]
-      },
-      type: {
-        type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
-      },
-      error: {
-        type: String
-      },
-      border: {
-        type: Boolean,
-        default: true
-      },
-      placeholder: String,
-
-      options:Array as PropType<Array<{ value: string,text: string}>>
+      type: String
+    },
+    modelValue: {
+      type: [String, Number]
+    },
+    type: {
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>,
+    },
+    error: {
+      type: String
+    },
+    border: {
+      type: Boolean,
+      default: true
+    },
+    placeholder: String,
+    options: Array as PropType<Array<{ value: string, text: string }>>,
+    onClick: Function as PropType<() => void>
   },
   emits: ['update:modelValue'],
   setup: (props, context) => {
-    const refDateVisible= ref(false)
+    const refDateVisible = ref(false)
     const content = computed(() => {
       switch (props.type) {
         case 'text':
@@ -63,13 +63,13 @@ export const FormItem = defineComponent({
             class={[s.formItem, s.emojiList]} />
         case "validationCode":
           return <>
-            <input 
+            <input
               onInput={(e: any) => context.emit('update:modelValue', e.target.value)}
               class={[s.formItem, s.input, s.validationCodeInput]}
               placeholder={props.placeholder} />
-              <Button class={[s.formItem, s.button, s.validationCodeButton]}>
-                发送验证码
-              </Button>
+            <Button onClick={props.onClick} class={[s.formItem, s.button, s.validationCodeButton]}>
+              发送验证码
+            </Button>
           </>
         case 'select':
           return <select class={[s.formItem, s.select]} value={props.modelValue}
@@ -80,7 +80,7 @@ export const FormItem = defineComponent({
           </select>
         case 'date':
           return <>
-           <input readonly={true} value={props.modelValue}
+            <input readonly={true} value={props.modelValue}
               onClick={() => { refDateVisible.value = true }}
               class={[s.formItem, s.input]} />
             <Popup position='bottom' v-model:show={refDateVisible.value}>
@@ -100,21 +100,21 @@ export const FormItem = defineComponent({
     })
 
     return () => {
-        return <div class={s.formRow}>
-         <label class={s.formLabel}>
-           {props.label &&
-             <span class={s.formItem_name}>{props.label}</span>
-           }
-           <div class={[
+      return <div class={s.formRow}>
+        <label class={s.formLabel}>
+          {props.label &&
+            <span class={s.formItem_name}>{props.label}</span>
+          }
+          <div class={[
             s.formItem_value,
             props.error && [s.formItem_error, s.formItem_fuvk]]
-            }>
-             {content.value}
-           </div>
-           <div class={s.formItem_errorHint}>
+          }>
+            {content.value}
+          </div>
+          <div class={s.formItem_errorHint}>
             <span>{props.error ?? '　'}</span>
           </div>
-         </label>
+        </label>
       </div>
     };
   },

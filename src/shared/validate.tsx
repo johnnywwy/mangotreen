@@ -27,8 +27,6 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>) => {
 
     switch (type) {
       case "required":
-        console.log('测试啦啦啦阿里', value, key);
-        
         if (value === null || value === undefined || value === "") {
           errors[key] = errors[key] ?? [];
           errors[key]?.push(message);
