@@ -1,4 +1,4 @@
-import { defineComponent, PropType, reactive } from "vue";
+import { defineComponent, PropType, reactive, ref } from "vue";
 import { MainLayout } from "../layouts/MainLayout";
 import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
@@ -14,6 +14,8 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
+
+    const validationCode = ref<any>()
 
     const formData = reactive({
       email: "johnnywwy@163.com",
@@ -50,12 +52,14 @@ export const SignInPage = defineComponent({
     }
 
     const onClickSendValidationCode = async () => {
-      console.log('点击验证码按钮了');
 
-      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-      // console.log('response', response);
+      const response = await axios.post('/api/v1/validation_codes', { email: formData.email }).catch(() => {
+        //失败
+      })
 
+      validationCode.value.startCount()
     }
+
     return () => (
       <MainLayout>
         {{
@@ -76,6 +80,7 @@ export const SignInPage = defineComponent({
                   placeholder="请输入邮箱地址"
                   type="text" />
                 <FormItem label="验证码"
+                  ref={validationCode}
                   countForm={5}
                   error={errors.code?.[0]}
                   v-model={formData.code}
