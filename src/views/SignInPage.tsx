@@ -6,6 +6,7 @@ import { Icon } from "../shared/Icon";
 import s from "./SignInPage.module.scss";
 import { Rules, validate } from "../shared/validate";
 import axios from "axios";
+import { http } from "../shared/Http";
 
 export const SignInPage = defineComponent({
   props: {
@@ -49,11 +50,19 @@ export const SignInPage = defineComponent({
       Object.assign(errors, validate(formData, rules));
     }
 
-    const onClickSendValidationCode = async () => {
-      console.log('点击验证码按钮了');
 
-      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-      // console.log('response', response);
+    // 报错
+    const onError = (error: any) => {
+      if (error.response.status === 422) {
+        Object.assign(errors, error.response.data.errors)
+      }
+      throw error
+    }
+
+    const onClickSendValidationCode = async () => {
+      const response = await http
+        .post('/validation_codes', { email: formData.email })
+        .catch(onError)
 
     }
     return () => (
