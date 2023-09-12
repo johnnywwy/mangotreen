@@ -5,8 +5,8 @@ import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
 import s from "./SignInPage.module.scss";
 import { hasError, Rules, validate } from "../shared/validate";
-import axios from "axios";
 import { http } from "../shared/Http";
+import { useRoute, useRouter } from "vue-router";
 
 export const SignInPage = defineComponent({
   props: {
@@ -15,7 +15,8 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
-
+    const router = useRouter()
+    const route = useRoute()
     const validationCode = ref<any>()
     const refValidationCodeDisabled = ref(false)
 
@@ -54,15 +55,15 @@ export const SignInPage = defineComponent({
 
       if (!hasError(errors)) {
         const response = await http.post<{ jwt: string }>('/session', formData)
-
+          .catch(onError)
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
-        console.log('成功啦', response);
-
+        // const redirectTo = localStorage.getItem('RedirectTo')
+        const redirect = route.query.redirect?.toString()
+        router.push(redirect || '/')
       }
-
     }
 
-    // 报错
+    // 统一报错提示
     const onError = (error: any) => {
       if (error.response.status === 422) {
         Object.assign(errors, error.response.data.errors)
@@ -78,9 +79,7 @@ export const SignInPage = defineComponent({
         .finally(() => {
           refValidationCodeDisabled.value = false
         })
-
       validationCode.value.startCount()
-
     }
 
     return () => (
