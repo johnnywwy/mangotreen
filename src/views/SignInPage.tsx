@@ -59,7 +59,7 @@ export const SignInPage = defineComponent({
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
         // const redirectTo = localStorage.getItem('RedirectTo')
         const redirect = route.query.redirect?.toString()
-        router.push(redirect || '/')
+        router.push(redirect || '/start')
       }
     }
 
