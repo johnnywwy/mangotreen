@@ -17,6 +17,7 @@ export const SignInPage = defineComponent({
   setup: (props, context) => {
 
     const validationCode = ref<any>()
+    const refValidationCodeDisabled = ref(false)
 
     const formData = reactive({
       email: "johnnywwy@163.com",
@@ -61,9 +62,13 @@ export const SignInPage = defineComponent({
     }
 
     const onClickSendValidationCode = async () => {
+      refValidationCodeDisabled.value = true
       const response = await http
         .post('/validation_codes', { email: formData.email })
         .catch(onError)
+        .finally(() => {
+          refValidationCodeDisabled.value = false
+        })
 
       validationCode.value.startCount()
 
@@ -90,7 +95,8 @@ export const SignInPage = defineComponent({
                   type="text" />
                 <FormItem label="验证码"
                   ref={validationCode}
-                  countForm={5}
+                  countForm={10}
+                  disabled={refValidationCodeDisabled.value}
                   error={errors.code?.[0]}
                   v-model={formData.code}
                   placeholder="请输入验证码"
