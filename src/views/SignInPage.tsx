@@ -52,13 +52,21 @@ export const SignInPage = defineComponent({
       Object.assign(errors, validate(formData, rules));
     }
 
-    const onClickSendValidationCode = async () => {
-      console.log('点击验证码按钮了');
+    // 报错
+    const onError = (error: any) => {
+      if (error.response.status === 422) {
+        Object.assign(errors, error.response.data.errors)
+      }
+      throw error
+    }
 
-      // const response = await axios.post('/api/v1/validation_codes', { email: formData.email })
-      // console.log('response', response);
+    const onClickSendValidationCode = async () => {
+      const response = await http
+        .post('/validation_codes', { email: formData.email })
+        .catch(onError)
 
       validationCode.value.startCount()
+
     }
 
     return () => (
