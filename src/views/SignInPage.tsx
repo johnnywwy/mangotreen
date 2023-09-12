@@ -4,7 +4,7 @@ import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { Icon } from "../shared/Icon";
 import s from "./SignInPage.module.scss";
-import { Rules, validate } from "../shared/validate";
+import { hasError, Rules, validate } from "../shared/validate";
 import axios from "axios";
 import { http } from "../shared/Http";
 
@@ -26,7 +26,7 @@ export const SignInPage = defineComponent({
 
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
 
-    const onsubmit = (e: Event) => {
+    const onSubmit = async (e: Event) => {
       e.preventDefault();
       const rules: Rules<typeof formData> = [
         { key: "email", type: "required", message: "必填" },
@@ -51,6 +51,15 @@ export const SignInPage = defineComponent({
 
       // 验证表单
       Object.assign(errors, validate(formData, rules));
+
+      if (!hasError(errors)) {
+        const response = await http.post<{ jwt: string }>('/session', formData)
+
+        localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
+        console.log('成功啦', response);
+
+      }
+
     }
 
     // 报错
@@ -87,7 +96,7 @@ export const SignInPage = defineComponent({
                 </svg>
                 <h2>蛋黄记账</h2>
               </header>
-              <Form onSubmit={onsubmit}>
+              <Form onSubmit={onSubmit}>
                 <FormItem label="邮箱地址"
                   error={errors.email?.[0]}
                   v-model={formData.email}
@@ -104,7 +113,7 @@ export const SignInPage = defineComponent({
                   onClick={onClickSendValidationCode}
                 />
                 <FormItem class={s.actions}>
-                  <Button>登录</Button>
+                  <Button type="submit">登录</Button>
                 </FormItem>
               </Form>
             </div>
