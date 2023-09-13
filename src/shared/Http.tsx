@@ -28,6 +28,19 @@ export class Http {
 
 export const http = new Http('/api/v1')
 
+// 请求拦截
+http.instance.interceptors.request.use(config => {
+  const token = localStorage.getItem("jwt")?.replace(/["']/g, '')
+  console.log('token', token);
+
+  if (token) {
+    config.headers!.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+
+// 响应拦截
 http.instance.interceptors.response.use(response => {
   console.log('response')
   return response
@@ -36,6 +49,10 @@ http.instance.interceptors.response.use(response => {
     const axiosError = error as AxiosError
     if (axiosError.response?.status === 429) {
       alert('你太频繁了')
+    }
+    if (axiosError.response?.status === 500) {
+      alert('服务器繁忙，请稍后再试！')
+
     }
   }
   throw error
