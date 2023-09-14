@@ -17,7 +17,7 @@
     "svgo": "2.8.0",
     "svgstore": "3.0.1",
     "vant": "4.6.0",
-    "vue": "3.2.45",
+    "vue": "3.2.47",
     "vue-router": "4"
   },
   "devDependencies": {
