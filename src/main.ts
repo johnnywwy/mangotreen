@@ -13,16 +13,32 @@ const router = createRouter({ history, routes });
 
 fetchMe()
 
+const whiteList: Record<'exac' | 'startsWith', string[]> = {
+  'exac': ['/', '/start'],
+  'startsWith': ['/welcome', '/sign_in']
+}
+
 router.beforeEach(async (to, from) => {
-  if (to.path === '/' || to.path.startsWith('/welcome') || to.path.startsWith('/sign_in') || to.path === '/start') {
-    return true
-  } else {
-    const path = await mePromise.then(
-      () => true,
-      () => '/sign_in?redirect=' + to.path
-    )
-    return path
+
+  for (let key in whiteList) {
+    console.log('key', key);
+    if (key === 'exac') {
+      if (whiteList[key].includes(to.path)) {
+        return true;
+      }
+    }
+    if (key === 'startsWith') {
+      if (whiteList[key].some(path => to.path.startsWith(path))) {
+        return true;
+      }
+    }
   }
+
+  return mePromise.then(
+    () => true,
+    () => '/sign_in?redirect=' + to.path
+  )
+
 })
 const app = createApp(App);
 app.use(router);
