@@ -36,6 +36,16 @@
   padding-top: 5px;
 }
 
+.more_wrapper{
+  padding: 16px;
+  text-align: center;
+  .loadMore{}
+  .noMore{
+
+  }
+  
+}
+
 .createTag {
   fill: var(--main);
 }

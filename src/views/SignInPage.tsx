@@ -55,11 +55,7 @@ export const SignInPage = defineComponent({
       Object.assign(errors, validate(formData, rules));
 
       if (!hasError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData, {
-          params: { _mock: 'session' }
-        }).catch(onError)
-        console.log('123123', response);
-
+        const response = await http.post<{ jwt: string }>('/session', formData).catch(onError)
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
         // const redirectTo = localStorage.getItem('RedirectTo')
         const redirect = route.query.redirect?.toString()

@@ -1,10 +1,13 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref } from "vue";
 import s from "./ItemCreate.module.scss";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
 import { Tabs, Tab } from "../../shared/Tabs";
 import { InputPad } from "./InputPad";
 import { useRouter } from "vue-router";
+import { http } from "../../shared/Http";
+import { Resources, Tag } from "../../type/tags";
+import { Button } from "../../shared/Button";
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -14,175 +17,41 @@ export const ItemCreate = defineComponent({
   setup: (props, content) => {
     const refKind = ref("支出");
 
+    const refPage = ref(0)
+    const refHasMore = ref(false)
+
+    onMounted(async () => {
+      const response = await http.get<Resources<Tag>>('/tags', {
+        kind: 'expenses',
+        // page: 1,
+        page: 1,
+
+        _mock: "tagIndex"
+      })
+      console.log('response666', response);
+
+      const { resources, pager } = response.data
+      refExpensesTags.value = resources
+      refHasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
+      console.log('refHasMore.value', refHasMore.value);
+
+    })
+
     // 支出标签
-    const refExpensesTags = ref([
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-      {
-        id: 1,
-        name: "餐饮",
-        sign: "🍔",
-        category: "expenses",
-      },
-      {
-        id: 2,
-        name: "交通",
-        sign: "🚗",
-        category: "expenses",
-      },
-      {
-        id: 3,
-        name: "购物",
-        sign: "🛍️",
-        category: "expenses",
-      },
-    ]);
+    const refExpensesTags = ref<Tag[]>([]);
 
     // 收入标签
-    const refIncomeTags = ref([
-      {
-        id: 4,
-        name: "工资",
-        sign: "💰",
-        category: "income",
-      },
-      {
-        id: 5,
-        name: "兼职",
-        sign: "💰",
-        category: "income",
-      },
-      {
-        id: 6,
-        name: "理财",
-        sign: "💰",
-        category: "income",
-      },
-    ]);
+    const refIncomeTags = ref<Tag[]>([]);
+
+    onMounted(async () => {
+      const response = await http.get<{ resources: Tag[] }>('/tags', {
+        kind: 'income',
+        _mock: "tagIndex"
+      })
+      console.log('response666', response);
+
+      refIncomeTags.value = response.data.resources
+    })
 
     const router = useRouter();
     return () => (
@@ -201,25 +70,34 @@ export const ItemCreate = defineComponent({
           default: () => (
             <>
               <div class={s.wrapper}>
-                <Tabs 
-                v-model:selected={refKind.value}
-                // selected={refKind.value}
-                // onUpdate:selected={() => console.log(2111)}
-                 class={s.tabs}
-                 >
-                  <Tab name="支出" class={s.tags_wrapper}>
-                    <div class={s.tag}>
-                      <div class={s.sign}>
-                        <Icon name="add" class={s.createTag} />
+                <Tabs
+                  v-model:selected={refKind.value}
+                  // selected={refKind.value}
+                  // onUpdate:selected={() => console.log(2111)}
+                  class={s.tabs}
+                >
+                  <Tab name="支出">
+                    <div class={s.tags_wrapper}>
+                      <div class={s.tag}>
+                        <div class={s.sign}>
+                          <Icon name="add" class={s.createTag} />
+                        </div>
+                        <div class={s.name}>新增</div>
                       </div>
-                      <div class={s.name}>新增</div>
+                      {refExpensesTags.value.map((tag) => (
+                        <div class={[s.tag, s.selected]}>
+                          <div class={s.sign}>{tag.sign}</div>
+                          <div class={s.name}>{tag.name}</div>
+                        </div>
+                      ))}
                     </div>
-                    {refExpensesTags.value.map((tag) => (
-                      <div class={[s.tag, s.selected]}>
-                        <div class={s.sign}>{tag.sign}</div>
-                        <div class={s.name}>{tag.name}</div>
-                      </div>
-                    ))}
+                    <div class={s.more_wrapper}>
+                      {
+                        refHasMore.value ?
+                          <Button>加载更多</Button> :
+                          <span>没有更多</span>
+                      }
+                    </div>
                   </Tab>
                   <Tab name="收入" class={s.tags_wrapper}>
                     <div class={s.tag}>
