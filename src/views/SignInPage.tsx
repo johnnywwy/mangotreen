@@ -7,6 +7,7 @@ import s from "./SignInPage.module.scss";
 import { hasError, Rules, validate } from "../shared/validate";
 import { http } from "../shared/Http";
 import { useRoute, useRouter } from "vue-router";
+import { refreshMe } from "../shared/me";
 
 export const SignInPage = defineComponent({
   props: {
@@ -59,7 +60,11 @@ export const SignInPage = defineComponent({
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
         // const redirectTo = localStorage.getItem('RedirectTo')
         const redirect = route.query.redirect?.toString()
-        router.push(redirect || '/start')
+        refreshMe().then(() => {
+          router.push(redirect || '/start')
+        }, () => {
+          alert('登录失败 !')
+        })
       }
     }
 

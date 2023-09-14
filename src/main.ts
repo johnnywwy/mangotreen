@@ -7,15 +7,17 @@ import "@svgstore";
 // 2. 引入组件样式
 import 'vant/lib/index.css';
 import { http } from "./shared/Http";
+import { mePromise, fetchMe } from "./shared/me";
 const router = createRouter({ history, routes });
 
 
-const promise = http.get('/me')
+fetchMe()
+
 router.beforeEach(async (to, from) => {
   if (to.path === '/' || to.path.startsWith('/welcome') || to.path.startsWith('/sign_in') || to.path === '/start') {
     return true
   } else {
-    const path = await promise.then(
+    const path = await mePromise.then(
       () => true,
       () => '/sign_in?redirect=' + to.path
     )
