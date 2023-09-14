@@ -1,5 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
-import { mockSession } from "../mock/mock";
+import { mockSession, mockTagIndex } from "../mock/mock";
 type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue };
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
@@ -40,9 +40,11 @@ const mock = (response: AxiosResponse) => {
   }
 
   switch (response.config?.params?._mock) {
-    // case 'tagIndex':
-    //   [response.status, response.data] = mockTagIndex(response.config)
-    //   return true
+    // console.log('response.config?.params?._mock', response.config?.params?._mock);
+
+    case 'tagIndex':
+      [response.status, response.data] = mockTagIndex(response.config)
+      return true
     // case 'itemCreate':
     //   [response.status, response.data] = mockItemCreate(response.config)
     //   return true
@@ -88,7 +90,6 @@ http.instance.interceptors.response.use(response => {
 
 // 响应拦截
 http.instance.interceptors.response.use(response => {
-  console.log('response')
   return response
 }, (error) => {
   if (error.response) {
