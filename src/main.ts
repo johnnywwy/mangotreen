@@ -6,7 +6,6 @@ import { history } from "./shared/history";
 import "@svgstore";
 // 2. 引入组件样式
 import 'vant/lib/index.css';
-import { http } from "./shared/Http";
 import { mePromise, fetchMe } from "./shared/me";
 const router = createRouter({ history, routes });
 
@@ -20,7 +19,6 @@ const whiteList: Record<'exac' | 'startsWith', string[]> = {
 
 router.beforeEach((to, from) => {
   for (let key in whiteList) {
-    console.log('key', key);
     if (key === 'exac') {
       if (whiteList[key].includes(to.path)) {
         return true;
