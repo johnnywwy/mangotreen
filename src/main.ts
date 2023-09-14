@@ -18,8 +18,7 @@ const whiteList: Record<'exac' | 'startsWith', string[]> = {
   'startsWith': ['/welcome', '/sign_in']
 }
 
-router.beforeEach(async (to, from) => {
-
+router.beforeEach((to, from) => {
   for (let key in whiteList) {
     console.log('key', key);
     if (key === 'exac') {
