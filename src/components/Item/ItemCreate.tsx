@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, reactive, ref } from "vue";
 import s from "./ItemCreate.module.scss";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
@@ -20,6 +20,9 @@ export const ItemCreate = defineComponent({
     const router = useRouter();
     const refKind = ref("支出");
 
+    const formData = reactive({
+      id: 1
+    })
     return () => (
       <MainLayout class={s.layout}>
         {{
@@ -43,10 +46,10 @@ export const ItemCreate = defineComponent({
                   class={s.tabs}
                 >
                   <Tab name="支出">
-                    <Tags kind="expenses" />
+                    <Tags kind="expenses" v-model:selected={formData.id} />
                   </Tab>
                   <Tab name="收入">
-                    <Tags kind="income" />
+                    <Tags kind="income" v-model:selected={formData.id} />
                   </Tab>
                 </Tabs>
                 <div class={s.inputPad_wrapper}>

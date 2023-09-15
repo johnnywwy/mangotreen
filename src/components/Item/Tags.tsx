@@ -1,8 +1,10 @@
+import { number } from "echarts";
 import { defineComponent, PropType } from "vue";
 import { Button } from "../../shared/Button";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { useTags } from "../../shared/useTags";
+import { Tag } from "../../type/tags";
 import s from './Tags.module.scss';
 
 export const Tags = defineComponent({
@@ -11,8 +13,16 @@ export const Tags = defineComponent({
       type: String as PropType<'expenses' | 'income'>,
       required: true
     },
+    selected: {
+      type: Number
+    }
   },
-  setup: (props, content) => {
+  emits: ['update:selected'],
+  setup: (props, context) => {
+
+    const onSelect = (tag: Tag) => {
+      context.emit('update:selected', tag.id)
+    }
 
     // 请求
     const { tags: expensesTags, hasMore, fetchTags } = useTags((page) => {
@@ -32,12 +42,15 @@ export const Tags = defineComponent({
           <div class={s.name}>新增</div>
         </div>
         {expensesTags.value.map((tag) => (
-          <div class={[s.tag, s.selected]}>
-            <div class={s.sign}>{tag.sign}</div>
+          <div
+            onClick={() => onSelect(tag)}
+            class={[s.tag, props.selected === tag.id ? s.selected : '']}
+          >
+            <div class={s.sign} > {tag.sign}</div>
             <div class={s.name}>{tag.name}</div>
           </div>
         ))}
-      </div>
+      </div >
       <div class={s.more_wrapper}>
         {
           hasMore.value ?
