@@ -1,3 +1,10 @@
+import { http } from "../shared/Http"
+
+type tagsDTO = {
+  page: number,
+  kind: "expenses" | "income"
+}
+
 // 获取标签
 export const getTags = () => { }
 
@@ -11,4 +18,4 @@ export const updateTags = () => { }
 export const deleteTags = () => { }
 
 // 获取标签列表
-export const getTagsList = () => { }
+export const getTagsList = (params: tagsDTO) => http.get('/tags', params)

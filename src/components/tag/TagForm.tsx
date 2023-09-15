@@ -8,7 +8,8 @@ export const TagForm = defineComponent({
     props: {
         name: {
             type: String as PropType<string>,
-        }
+        },
+
     },
     setup: (props, context) => {
         const formData = reactive({
@@ -44,7 +45,8 @@ export const TagForm = defineComponent({
 
             // 验证表单
             Object.assign(errors, validate(formData, rules));
-            console.log(errors);
+            console.log('99898888', errors);
+
         };
 
         return () => (
@@ -55,12 +57,12 @@ export const TagForm = defineComponent({
                     error={errors['name']?.[0]} />
                 <FormItem label={'符号 ' + formData.sign}
                     type="emojiSelect" v-model={formData.sign}
-                    error={errors['sign']?.[0]}/>
+                    error={errors['sign']?.[0]} />
                 <FormItem>
                     <p class={s.tips}>记账时长按标签即可进行编辑</p>
                 </FormItem>
                 <FormItem>
-                    <Button class={[s.button]}>确定</Button>
+                    <Button class={[s.button]} type="submit">确定</Button>
                 </FormItem>
             </Form>
         )

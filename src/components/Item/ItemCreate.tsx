@@ -8,6 +8,7 @@ import { useRouter } from "vue-router";
 import { http } from "../../shared/Http";
 import { Item, Resource } from "../../type/tags";
 import { Tags } from "./Tags";
+import { getTagsList } from "../../api/tags";
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -28,6 +29,7 @@ export const ItemCreate = defineComponent({
 
     const onSubmit = async () => {
       console.log('提交', formData);
+      // getTagsList
       const response = await http.post<Resource<Item>>('/tags', formData)
 
     }

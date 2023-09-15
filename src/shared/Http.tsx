@@ -75,21 +75,23 @@ http.instance.interceptors.request.use(config => {
 
 
 // mock 响应拦截器
-http.instance.interceptors.response.use(response => {
-  //尝试篡改内容
-  mock(response)
-  return response
-}, (error) => {
-  if (mock(error.response)) {
-    return error.response
-  } else {
-    throw error
-  }
-})
+// http.instance.interceptors.response.use(response => {
+//   console.log('响应拦截1', response.data);
+//   //尝试篡改内容
+//   mock(response)
+//   return response
+// }, (error) => {
+//   if (mock(error.response)) {
+//     return error.response
+//   } else {
+//     throw error
+//   }
+// })
 
 
 // 响应拦截
 http.instance.interceptors.response.use(response => {
+  // if (response.status === 200) return response.data
   return response
 }, (error) => {
   if (error.response) {
@@ -99,7 +101,6 @@ http.instance.interceptors.response.use(response => {
     }
     if (axiosError.response?.status === 500) {
       alert('服务器繁忙，请稍后再试！')
-
     }
   }
   throw error

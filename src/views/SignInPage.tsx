@@ -8,6 +8,7 @@ import { hasError, Rules, validate } from "../shared/validate";
 import { http } from "../shared/Http";
 import { useRoute, useRouter } from "vue-router";
 import { refreshMe } from "../shared/me";
+import { sendValidationCodes } from "../api/api";
 
 export const SignInPage = defineComponent({
   props: {
@@ -77,12 +78,18 @@ export const SignInPage = defineComponent({
 
     const onClickSendValidationCode = async () => {
       refValidationCodeDisabled.value = true
-      const response = await http
-        .post('/validation_codes', { email: formData.email })
-        .catch(onError)
-        .finally(() => {
-          refValidationCodeDisabled.value = false
-        })
+
+      const response = await sendValidationCodes(formData.email)
+      console.log('获取验证码', response);
+
+      if (!response) return
+      refValidationCodeDisabled.value = false
+      // const response = await http
+      //   .post('/validation_codes', { email: formData.email })
+      //   .catch(onError)
+      //   .finally(() => {
+      //     refValidationCodeDisabled.value = false
+      //   })
       validationCode.value.startCount()
     }
 
