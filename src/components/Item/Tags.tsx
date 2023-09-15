@@ -1,5 +1,7 @@
 import { number } from "echarts";
 import { defineComponent, PropType } from "vue";
+import { routerKey, useRouter } from "vue-router";
+import { getTagsList } from "../../api/tags";
 import { Button } from "../../shared/Button";
 import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
@@ -19,6 +21,7 @@ export const Tags = defineComponent({
   },
   emits: ['update:selected'],
   setup: (props, context) => {
+    const router = useRouter()
 
     const onSelect = (tag: Tag) => {
       context.emit('update:selected', tag.id)
@@ -26,10 +29,9 @@ export const Tags = defineComponent({
 
     // 请求
     const { tags: expensesTags, hasMore, fetchTags } = useTags((page) => {
-      return http.get<Resources<Tag>>('/tags', {
+      return getTagsList({
         kind: props.kind,
         page: page + 1,
-        _mock: "tagIndex"
       })
     })
 
@@ -39,7 +41,7 @@ export const Tags = defineComponent({
           <div class={s.sign}>
             <Icon name="add" class={s.createTag} />
           </div>
-          <div class={s.name}>新增</div>
+          <div class={s.name} onClick={() => router.push('/tag/create')}>新增</div>
         </div>
         {expensesTags.value.map((tag) => (
           <div
