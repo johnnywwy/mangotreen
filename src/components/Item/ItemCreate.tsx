@@ -21,7 +21,9 @@ export const ItemCreate = defineComponent({
     const refKind = ref("支出");
 
     const formData = reactive({
-      id: 1
+      id: 1,
+      happenAt: new Date().toISOString(),
+      amount: ''
     })
     return () => (
       <MainLayout class={s.layout}>
@@ -53,7 +55,11 @@ export const ItemCreate = defineComponent({
                   </Tab>
                 </Tabs>
                 <div class={s.inputPad_wrapper}>
-                  <InputPad />
+                  <div>{formData.happenAt}</div>
+                  <InputPad
+                    v-model:happenAt={formData.happenAt}
+                    v-model:amount={formData.amount}
+                  />
                 </div>
               </div>
             </>

@@ -1,28 +1,52 @@
 import { defineComponent, PropType, ref } from "vue";
 import s from "./InputPad.module.scss";
 import { Icon } from "../../shared/Icon";
-import dayjs from "dayjs";
 import { Popup, DatePicker } from "vant";
-// import type { DatePickerProps, DatePickerColumnType } from "vant";
+import { Time } from '../../shared/time';
 
 export const InputPad = defineComponent({
   props: {
-    name: {
+    happenAt: {
       type: String as PropType<string>,
     },
+    amount: {
+      type: Number as PropType<number>,
+    }
   },
-  setup: (props, content) => {
-    const today = ref(dayjs().format("YYYY-MM-DD"));
+  emits: ['update:happenAt', 'update:amount'],
+  setup: (props, context) => {
+
+    // const refAmount = ref(props.amount || '0'); //金额
+    const refAmount = ref(props.amount ? (props.amount / 100).toString() : '0')
+
+
     const refDatePickerVisible = ref(false); //日期选择器是否显示
-    //拆分年月日
-    const { year, month, day } = {
-      year: dayjs().format("YYYY"),
-      month: dayjs().format("MM"),
-      day: dayjs().format("DD"),
-    };
-    //获取当前日期
-    const refDate = ref([year, month, day]);
-    const refAmount = ref("0");
+
+    const currentDate = ref<string[]>([]);//当前日期
+    // const currentDate = ref(props.happenAt!.split('T')[0].split("-"));//当前日期
+
+
+    // 显示日期选择器
+    const showDatePicker = () => refDatePickerVisible.value = true;
+
+    // 隐藏日期选择器
+    const hideDatePicker = () => refDatePickerVisible.value = false;
+
+    // 设置当前时间
+    const setDate = ({ selectedValues }: { selectedValues: string[] }) => {
+      const dateStr = selectedValues.join('-')
+      context.emit('update:happenAt', new Date(dateStr).toISOString())
+      hideDatePicker()
+    }
+
+    // 获取当前时间
+    const getCurrentDate = (date: string) => {
+      currentDate.value = date.split('T')[0].split("-")
+    }
+
+    getCurrentDate(props.happenAt!)
+
+
     //输入金额
     const appendText = (n: number | string) => {
       // 1、情况1：0开头的数字，只能输入一次0
@@ -42,54 +66,19 @@ export const InputPad = defineComponent({
       }
       refAmount.value += n.toString();
     };
+
+    // 按键
     const buttons = [
-      {
-        text: "1",
-        onClick: () => {
-          appendText(1);
-        },
-      },
-      {
-        text: "2",
-        onClick: () => {
-          appendText(2);
-        },
-      },
-      {
-        text: "3",
-        onClick: () => {
-          appendText(3);
-        },
-      },
-      {
-        text: "清空",
-        onClick: () => {
-          refAmount.value = "0";
-        },
-      },
-      {
-        text: "4",
-        onClick: () => {
-          appendText(4);
-        },
-      },
-      {
-        text: "5",
-        onClick: () => {
-          appendText(5);
-        },
-      },
-      {
-        text: "6",
-        onClick: () => {
-          appendText(6);
-        },
-      },
+      { text: "1", onClick: () => { appendText(1) } },
+      { text: "2", onClick: () => { appendText(2) } },
+      { text: "3", onClick: () => { appendText(3) } },
+      { text: "清空", onClick: () => { refAmount.value = "0" } },
+      { text: "4", onClick: () => { appendText(4) } },
+      { text: "5", onClick: () => { appendText(5) } },
+      { text: "6", onClick: () => { appendText(6) } },
       {
         text: "删除",
         onClick: () => {
-          console.log("删除", refAmount.value, refAmount.value.length);
-
           if (refAmount.value.length == 1) {
             refAmount.value = "0";
             return;
@@ -97,70 +86,34 @@ export const InputPad = defineComponent({
           refAmount.value = refAmount.value.slice(0, -1);
         },
       },
+      { text: "7", onClick: () => { appendText(7) } },
+      { text: "8", onClick: () => { appendText(8) } },
+      { text: "9", onClick: () => { appendText(9) } },
+      { text: "0", onClick: () => { appendText(0) } },
+      { text: ".", onClick: () => { appendText(".") } },
       {
-        text: "7",
-        onClick: () => {
-          appendText(7);
-        },
+        text: "确定", onclick: () =>
+          context.emit('update:amount', parseFloat(refAmount.value) * 100)
       },
-      {
-        text: "8",
-        onClick: () => {
-          appendText(8);
-        },
-      },
-      {
-        text: "9",
-        onClick: () => {
-          appendText(9);
-        },
-      },
-      {
-        text: "确定",
-        onClick: () => {
-          console.log("确定", refAmount.value);
-        },
-      },
-      {
-        text: "0",
-        onClick: () => {
-          appendText(0);
-        },
-      },
-      {
-        text: ".",
-        onClick: () => {
-          appendText(".");
-        },
-      },
-    ];
 
-    const showDatePicker = () => {
-      refDatePickerVisible.value = true;
-    };
-    const hideDatePicker = () => {
-      refDatePickerVisible.value = false;
-    };
+    ];
 
     return () => (
       <div class={s.wrapper}>
         <div class={s.dateAndAmount}>
           <span class={s.date}>
             <Icon name="logo" class={s.icon}></Icon>
-            <span onClick={showDatePicker}>{today.value}</span>
+            <span onClick={showDatePicker}>{new Time(props.happenAt).format()}</span>
             <Popup
               v-model:show={refDatePickerVisible.value}
               position={"bottom"}
             >
               <DatePicker
-                v-model={refDate.value}
+                v-model={currentDate.value}
+                value={props.happenAt}
                 type="data"
                 title="选择年月日"
-                onConfirm={({ selectedValues }: any) => {
-                  today.value = selectedValues.join("-");
-                  hideDatePicker();
-                }}
-                onCancel={hideDatePicker}
+                onConfirm={setDate} onCancel={hideDatePicker}
               />
             </Popup>
           </span>
