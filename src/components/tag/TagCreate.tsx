@@ -1,9 +1,13 @@
-import { defineComponent, PropType, reactive, toRaw } from "vue";
+import { defineComponent, PropType } from "vue";
 import { MainLayout } from "../../layouts/MainLayout";
 import { Icon } from "../../shared/Icon";
-import { Rules, validate } from "../../shared/validate";
+// import { Rules, validate } from "../../shared/validate";
 import { TagForm } from "./TagForm";
 import s from "./Tag.module.scss";
+import { createTags } from "../../api/tags";
+import { useRoute, useRouter } from "vue-router";
+import { showToast } from 'vant';
+
 export const TagCreate = defineComponent({
   props: {
     name: {
@@ -11,6 +15,10 @@ export const TagCreate = defineComponent({
     },
   },
   setup: (props, context) => {
+    const route = useRoute()
+    const router = useRouter()
+    const kind = route.query.kind?.toString()
+
     // const formData = reactive({
     //   name: "",
     //   sign: "",
@@ -47,13 +55,24 @@ export const TagCreate = defineComponent({
     //   console.log(errors);
     // };
 
+    const onCreateTags = async (formData: any) => {
+      console.log('触发了', { kind, ...formData });
+      const res = await createTags({ kind, ...formData })
+      if (res.data) {
+        showToast({
+          message: '创建成功', icon: 'success', duration: 800,
+          onClose: () => { router.back() }
+        });
+      }
+    }
+
     return () => (
       <MainLayout>
         {{
           title: () => "新建标签",
           icon: () => <Icon name="left" class={s.icon} onClick={() => { }} />,
           default: () => (
-            <TagForm />
+            <TagForm onCreateTags={onCreateTags} />
           ),
         }}
       </MainLayout>

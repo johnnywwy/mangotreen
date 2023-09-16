@@ -30,10 +30,15 @@ export type Resource<T> = {
 }
 
 export type Item = {
-  id: number
-  user_id: number
+  id?: number
+  user_id?: number
   amount: number
-  tags_id: number[]
+  tag_ids: number[]
   happen_at: string
   kind: 'expenses' | 'income'
+}
+
+// 报错信息
+export type ResourceError = {
+  errors: Record<string, string[]>
 }
