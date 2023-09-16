@@ -2,14 +2,17 @@ import { defineComponent, PropType, reactive, toRaw } from 'vue';
 import { Button } from "../../shared/Button";
 // import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Form, FormItem } from "../../shared/Form";
-import { Rules, validate } from "../../shared/validate";
+import { hasError, Rules, validate } from "../../shared/validate";
 import s from "./Tag.module.scss";
 export const TagForm = defineComponent({
     props: {
         name: {
             type: String as PropType<string>,
         },
-
+        onCreateTags: {
+            type: Function,
+            required: true
+        }
     },
     setup: (props, context) => {
         const formData = reactive({
@@ -45,7 +48,11 @@ export const TagForm = defineComponent({
 
             // 验证表单
             Object.assign(errors, validate(formData, rules));
-            console.log('99898888', errors);
+
+            if (!hasError(errors)) {
+                console.log('formData', formData);
+                props.onCreateTags?.(formData)
+            }
 
         };
 

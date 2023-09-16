@@ -95,6 +95,8 @@ http.instance.interceptors.response.use(response => {
   return response
 }, (error) => {
   if (error.response) {
+    console.log('响应拦截器', error.response.data);
+
     const axiosError = error as AxiosError
     if (axiosError.response?.status === 429) {
       alert('你太频繁了')
