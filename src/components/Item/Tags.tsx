@@ -1,5 +1,5 @@
 import { defineComponent, PropType } from "vue";
-import { useRouter } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 import { getTagsList } from "../../api/tags";
 import { Button } from "../../shared/Button";
 import { Icon } from "../../shared/Icon";
@@ -35,21 +35,23 @@ export const Tags = defineComponent({
 
     return () => <>
       <div class={s.tags_wrapper}>
-        <div class={s.tag}>
+        <RouterLink class={s.tag} to={`/tag/create?kind=${props.kind}`}>
           <div class={s.sign}>
             <Icon name="add" class={s.createTag} />
           </div>
-          <div class={s.name} onClick={() => router.push('/tag/create?kind=' + props.kind)}>新增</div>
-        </div>
-        {expensesTags.value.map((tag) => (
-          <div
-            onClick={() => onSelect(tag)}
-            class={[s.tag, props.selected === tag.id ? s.selected : '']}
-          >
-            <div class={s.sign} > {tag.sign}</div>
-            <div class={s.name}>{tag.name}</div>
-          </div>
-        ))}
+          <div class={s.name} >新增</div>
+        </RouterLink>
+        {
+          expensesTags.value.map((tag) => (
+            <div
+              onClick={() => onSelect(tag)}
+              class={[s.tag, props.selected === tag.id ? s.selected : '']}
+            >
+              <div class={s.sign} > {tag.sign}</div>
+              <div class={s.name}>{tag.name}</div>
+            </div>
+          ))
+        }
       </div >
       <div class={s.more_wrapper}>
         {

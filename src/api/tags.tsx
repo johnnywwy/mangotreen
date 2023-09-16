@@ -5,7 +5,7 @@ type tagsDTO = {
   kind: "expenses" | "income"
 }
 
-type createTags = {
+export type createTagsDTO = {
   name: string
   sign: string
   kind: 'income' | "expenses"
@@ -15,7 +15,7 @@ type createTags = {
 export const getTags = () => { }
 
 // 创建标签
-export const createTags = (params: createTags) => http.post('/tags', params)
+export const createTags = (params: createTagsDTO) => http.post('/tags', params)
 
 // 修改标签
 export const updateTags = () => { }

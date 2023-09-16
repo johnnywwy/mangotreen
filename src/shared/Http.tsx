@@ -65,7 +65,7 @@ const mock = (response: AxiosResponse) => {
 // 请求拦截
 http.instance.interceptors.request.use(config => {
   const token = localStorage.getItem("jwt")?.replace(/["']/g, '')
-  console.log('token', token);
+  // console.log('token', token);
 
   if (token) {
     config.headers!.Authorization = `Bearer ${token}`
