@@ -17,7 +17,7 @@ export const TagEdit = defineComponent({
       <MainLayout>
         {{
           title: () => "编辑标签",
-          icon: () => <Icon name="left" onClick={() => { }} />,
+          icon: () => <Icon name="left" class={s.icon} onClick={() => { }} />,
           default: () => (
             <>
               <TagForm id={numberId} />
