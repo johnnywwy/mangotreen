@@ -1,7 +1,7 @@
 import { showToast } from 'vant';
 import { defineComponent, onMounted, PropType, reactive, toRaw } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { createTag, updateTag } from '../../api/api';
+import { createTag, getTags, updateTag } from '../../api/api';
 import { Button } from "../../shared/Button";
 // import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Form, FormItem } from "../../shared/Form";
@@ -37,7 +37,7 @@ export const TagForm = defineComponent({
         // 修改tag
         const onUpdateTag = async (id: number) => {
 
-            const res = await updateTag(id)
+            const res = await updateTag(id, formData)
             if (res.data) {
                 showToast({
                     message: '修改成功', icon: 'success', duration: 800,
@@ -73,25 +73,19 @@ export const TagForm = defineComponent({
             Object.assign(errors, validate(formData, rules));
 
             if (!hasError(errors)) {
-                // console.log('formData', formData);
                 if (!formData.id) {
                     onCreateTags(formData)
                 } else {
                     onUpdateTag(formData.id)
                 }
             }
-
         };
         onMounted(async () => {
             if (!props.id) return
-            const response = await updateTag(props.id)
-
+            const response = await getTags(props.id)
             Object.assign(formData, response.data.resource)
-            console.log('formData', formData);
-
-
-
         })
+
         return () => (
             <Form onSubmit={onSubmit}>
                 <FormItem label='标签名'

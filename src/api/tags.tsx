@@ -13,13 +13,13 @@ export type createTagsDTO = {
 }
 
 // 获取标签
-export const getTags = () => { }
+export const getTags = (id: number) => http.patch<Resource<Tag>>(`/tags/${id}`)
 
 // 创建标签
 export const createTag = (params: createTagsDTO) => http.post('/tags', params)
 
 // 修改标签
-export const updateTag = (params: number) => http.patch<Resource<Tag>>(`/tags/${params}`)
+export const updateTag = (id: number, params: Partial<Tag>) => http.patch<Resource<Tag>>(`/tags/${id}`, params)
 
 // 删除标签
 export const deleteTag = () => { }
