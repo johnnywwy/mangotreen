@@ -1,4 +1,5 @@
 import { http } from "../shared/Http"
+import { Resources, Tag } from "../type/tags"
 
 type tagsDTO = {
   page: number,
@@ -24,4 +25,4 @@ export const updateTags = () => { }
 export const deleteTags = () => { }
 
 // 获取标签列表
-export const getTagsList = (params: tagsDTO) => http.get('/tags', params)
+export const getTagsList = (params: tagsDTO) => http.get<Resources<Tag>>('/tags', params)
