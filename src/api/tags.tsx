@@ -1,5 +1,5 @@
 import { http } from "../shared/Http"
-import { Resources, Tag } from "../type/tags"
+import { Resource, Resources, Tag } from "../type/tags"
 
 type tagsDTO = {
   page: number,
@@ -16,13 +16,13 @@ export type createTagsDTO = {
 export const getTags = () => { }
 
 // 创建标签
-export const createTags = (params: createTagsDTO) => http.post('/tags', params)
+export const createTag = (params: createTagsDTO) => http.post('/tags', params)
 
 // 修改标签
-export const updateTags = () => { }
+export const updateTag = (params: number) => http.patch<Resource<Tag>>(`/tags/${params}`)
 
 // 删除标签
-export const deleteTags = () => { }
+export const deleteTag = () => { }
 
 // 获取标签列表
 export const getTagsList = (params: tagsDTO) => http.get<Resources<Tag>>('/tags', params)

@@ -26,7 +26,7 @@ export type Resources<T = any> = {
 }
 
 export type Resource<T> = {
-  resources: T
+  resource: T
 }
 
 export type Item = {
