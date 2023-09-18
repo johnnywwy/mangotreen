@@ -1,34 +1,31 @@
 import { showToast } from 'vant';
-import { defineComponent, PropType, reactive, toRaw } from 'vue';
+import { defineComponent, onMounted, PropType, reactive, toRaw } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { createTags } from '../../api/api';
+import { createTag, updateTag } from '../../api/api';
 import { Button } from "../../shared/Button";
 // import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Form, FormItem } from "../../shared/Form";
 import { hasError, Rules, validate } from "../../shared/validate";
+import { Tag } from '../../type/tags';
 import s from "./Tag.module.scss";
 export const TagForm = defineComponent({
     props: {
-        name: {
-            type: String as PropType<string>,
-        }
+        id: Number
     },
     setup: (props, context) => {
         const route = useRoute()
         const router = useRouter()
-        const formData = reactive({
-            kind: route.query.kind!.toString(),
+        const formData = reactive<Partial<Tag>>({
+            id: undefined,
             name: "",
             sign: "",
+            kind: route.query.kind!.toString() as "expenses" | "income",
         });
-
         const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
-
-
         // 创建tags
         const onCreateTags = async (formData: any) => {
             console.log('触发了', formData);
-            const res = await createTags(formData)
+            const res = await createTag(formData)
             if (res.data) {
                 showToast({
                     message: '创建成功', icon: 'success', duration: 800,
@@ -37,6 +34,17 @@ export const TagForm = defineComponent({
             }
         }
 
+        // 修改tag
+        const onUpdateTag = async (id: number) => {
+
+            const res = await updateTag(id)
+            if (res.data) {
+                showToast({
+                    message: '修改成功', icon: 'success', duration: 800,
+                    onClose: () => { router.back() }
+                });
+            }
+        }
         //提交表单
         const onSubmit = (e: Event) => {
             e.preventDefault();
@@ -66,12 +74,24 @@ export const TagForm = defineComponent({
 
             if (!hasError(errors)) {
                 // console.log('formData', formData);
-                onCreateTags(formData)
+                if (!formData.id) {
+                    onCreateTags(formData)
+                } else {
+                    onUpdateTag(formData.id)
+                }
             }
 
         };
+        onMounted(async () => {
+            if (!props.id) return
+            const response = await updateTag(props.id)
+
+            Object.assign(formData, response.data.resource)
+            console.log('formData', formData);
 
 
+
+        })
         return () => (
             <Form onSubmit={onSubmit}>
                 <FormItem label='标签名'
