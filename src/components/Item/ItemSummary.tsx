@@ -70,7 +70,12 @@ export const ItemSummary = defineComponent({
             </div>
           </li>
         </ol>
-        <div class={s.more}>向下滑动加载更多</div>
+        <div class={s.more}>
+          {hasMore.value ?
+            <Button onClick={onGetItems}>加载更多</Button> :
+            <span>没有更多</span>
+          }
+        </div>
         <FloatButton />
       </div>
     );
