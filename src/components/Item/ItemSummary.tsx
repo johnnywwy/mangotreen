@@ -1,7 +1,12 @@
-import { defineComponent, PropType, ref } from "vue";
-import { FloatButton } from "../../shared/FloatButton";
+import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { Button } from '../../shared/Button'
+import { FloatButton } from '../../shared/FloatButton'
+// import { http } from '../../shared/Http'
+// getItem
+import { getItem } from "../../api/api";
 
-import s from './ItemSummary.module.scss';
+import s from './ItemSummary.module.scss'
+import { Item } from '../../type/tags';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -15,6 +20,24 @@ export const ItemSummary = defineComponent({
     }
   },
   setup: (props, content) => {
+    const items = ref<Item[]>([])
+    const hasMore = ref(false)
+    const page = ref(0)
+
+    const onGetItems = async () => {
+      const response = await getItem({
+        happen_after: props.startData,
+        happen_before: props.startData,
+        page: page.value + 1,
+      })
+      const { resources, pager } = response.data
+      items.value?.push(...resources)
+      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
+      page.value += 1
+    }
+
+    onMounted(onGetItems)
+
     return () => (
       <div class={s.wrapper}>
         <ul class={s.total}>
@@ -32,76 +55,6 @@ export const ItemSummary = defineComponent({
           </li>
         </ul>
         <ol class={s.list}>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
-              </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
-              </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
-              </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
-              </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
-              </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
           <li>
             <div class={s.sign}>
               <span>X</span>

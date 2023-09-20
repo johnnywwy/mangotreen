@@ -1,5 +1,5 @@
 import { http } from "../shared/Http"
-import { Item, Resource } from "../type/tags"
+import { Item, Items, Resource, Resources } from "../type/tags"
 
 //创建账目
 export const createItem = (params: Item) => http.post<Resource<Item>>('/items', params)
@@ -10,7 +10,7 @@ export const deleteItem = () => { }
 
 
 // 获取账目
-export const getItem = () => { }
+export const getItem = (params: Items) => http.get<Resource<Item>>('/items', params)
 
 
 // 获取收支信息

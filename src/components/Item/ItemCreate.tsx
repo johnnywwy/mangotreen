@@ -7,7 +7,7 @@ import { InputPad } from "./InputPad";
 import { useRouter } from "vue-router";
 import { Item, ResourceError } from "../../type/tags";
 import { Tags } from "./Tags";
-import { createItem } from "../../api/account";
+import { createItem } from "../../api/api";
 import { showToast } from "vant";
 import { AxiosError } from "axios";
 export const ItemCreate = defineComponent({
