@@ -22,7 +22,10 @@ export const createTag = (params: createTagsDTO) => http.post('/tags', params)
 export const updateTag = (id: number, params: Partial<Tag>) => http.patch<Resource<Tag>>(`/tags/${id}`, params)
 
 // 删除标签
-export const deleteTag = () => { }
+export const deleteTag = (id: number, options?: { withItems: 'true' | 'false' }) => http.delete<Resource<Tag>>(`/tags/${id}`, options)
+
+// 删除标签和记账
+export const deleteTagAndItems = () => (id: number) => http.delete<Resource<Tag>>(`/tags/${id}`)
 
 // 获取标签列表
 export const getTagsList = (params: tagsDTO) => http.get<Resources<Tag>>('/tags', params)
