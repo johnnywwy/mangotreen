@@ -24,10 +24,14 @@ export const ItemSummary = defineComponent({
     const hasMore = ref(false)
     const page = ref(0)
 
+
+    console.log('startData', props.startData, props.endData);
+
+
     const onGetItems = async () => {
       const response = await getItem({
         happen_after: props.startData,
-        happen_before: props.startData,
+        happen_before: props.endData,
         page: page.value + 1,
       })
       const { resources, pager } = response.data
