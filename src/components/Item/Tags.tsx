@@ -22,7 +22,7 @@ export const Tags = defineComponent({
     const router = useRouter()
 
     const onSelect = (tag: Tag) => {
-      context.emit('update:selected', tag.id)
+      context.emit('update:selected', [tag.id])
     }
 
     // 请求

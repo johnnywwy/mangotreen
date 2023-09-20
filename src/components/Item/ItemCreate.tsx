@@ -22,7 +22,7 @@ export const ItemCreate = defineComponent({
 
     const formData = reactive<Item>({
       kind: 'expenses',
-      tag_ids: 0,
+      tag_ids: [],
       happen_at: new Date().toISOString(),
       amount: 0,
     })
