@@ -42,3 +42,10 @@ export type Item = {
 export type ResourceError = {
   errors: Record<string, string[]>
 }
+
+// 单笔记账数据结构
+export type Items = {
+  happen_after: string
+  happen_before: string
+  page: number
+}
