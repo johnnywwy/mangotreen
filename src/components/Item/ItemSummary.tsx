@@ -1,8 +1,6 @@
 import { defineComponent, onMounted, PropType, ref } from 'vue'
 import { Button } from '../../shared/Button'
 import { FloatButton } from '../../shared/FloatButton'
-// import { http } from '../../shared/Http'
-// getItem
 import { getItem } from "../../api/api";
 
 import s from './ItemSummary.module.scss'
@@ -28,6 +26,7 @@ export const ItemSummary = defineComponent({
     console.log('startData', props.startData, props.endData);
 
 
+    // 获取items
     const onGetItems = async () => {
       const response = await getItem({
         happen_after: props.startData,

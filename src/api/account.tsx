@@ -10,7 +10,7 @@ export const deleteItem = () => { }
 
 
 // 获取账目
-export const getItem = (params: Items) => http.get<Resource<Item>>('/items', params)
+export const getItem = (params: Items) => http.get<Resources<Item>>('/items', params)
 
 
 // 获取收支信息

@@ -14,7 +14,7 @@ export const Tags = defineComponent({
       required: true
     },
     selected: {
-      type: Number
+      type: Array
     }
   },
   emits: ['update:selected'],
@@ -82,7 +82,7 @@ export const Tags = defineComponent({
               onClick={() => onSelect(tag)}
               onTouchstart={(e) => onTouchStart(e, tag)}
               onTouchend={onTouchEnd}
-              class={[s.tag, props.selected === tag.id ? s.selected : '']}
+              class={[s.tag, props.selected![0] === tag.id ? s.selected : '']}
             >
               <div class={s.sign} > {tag.sign}</div>
               <div class={s.name}>{tag.name}</div>
