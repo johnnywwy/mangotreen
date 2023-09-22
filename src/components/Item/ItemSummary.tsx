@@ -10,11 +10,11 @@ export const ItemSummary = defineComponent({
   props: {
     startData: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     },
     endData: {
       type: String as PropType<string>,
-      required: true,
+      required: false,
     }
   },
   setup: (props, content) => {
@@ -25,8 +25,8 @@ export const ItemSummary = defineComponent({
     // 获取items
     const onGetItems = async () => {
       const response = await getItem({
-        happen_after: props.startData,
-        happen_before: props.endData,
+        happen_after: props.startData!,
+        happen_before: props.endData!,
         page: page.value + 1,
       })
       const { resources, pager } = response.data
