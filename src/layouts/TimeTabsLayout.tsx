@@ -107,7 +107,6 @@ export const TimeTabsLayout = defineComponent({
           ),
           default: () => (
             <>
-              {timeList[0].end}
               <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
                 onUpdate:selected={onSelect}
               >

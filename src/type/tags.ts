@@ -36,6 +36,7 @@ export type Item = {
   tag_ids: number[]
   happen_at: string
   kind: 'expenses' | 'income'
+  tags: Tag[]
 }
 
 // 报错信息

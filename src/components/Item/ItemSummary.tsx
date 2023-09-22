@@ -22,10 +22,6 @@ export const ItemSummary = defineComponent({
     const hasMore = ref(false)
     const page = ref(0)
 
-
-    console.log('startData', props.startData, props.endData);
-
-
     // 获取items
     const onGetItems = async () => {
       const response = await getItem({
@@ -43,42 +39,54 @@ export const ItemSummary = defineComponent({
 
     return () => (
       <div class={s.wrapper}>
-        <ul class={s.total}>
-          <li>
-            <span>收入</span>
-            <span>128</span>
-          </li>
-          <li>
-            <span>支出</span>
-            <span>99</span>
-          </li>
-          <li>
-            <span>净收入</span>
-            <span>39</span>
-          </li>
-        </ul>
-        <ol class={s.list}>
-          <li>
-            <div class={s.sign}>
-              <span>X</span>
-            </div>
-            <div class={s.text}>
-              <div class={s.tagAndAmount}>
-                <span class={s.tag}>旅行</span>
-                <span class={s.amount}>￥1234</span>
+        {
+          items.value ?
+            (<>
+              <ul class={s.total}>
+                <li>
+                  <span>收入</span>
+                  <span>128</span>
+                </li>
+                <li>
+                  <span>支出</span>
+                  <span>99</span>
+                </li>
+                <li>
+                  <span>净收入</span>
+                  <span>39</span>
+                </li>
+              </ul>
+              <ol class={s.list}>
+                {items.value.map((item) => (
+                  <li>
+                    <div class={s.sign}>
+                      <span>{item.tags[0].sign}</span>
+                    </div>
+                    <div class={s.text}>
+                      <div class={s.tagAndAmount}>
+                        <span class={s.tag}>{item.tags[0].name}</span>
+                        <span class={s.amount}>
+                          ￥<>{item.amount}</>
+                        </span>
+                      </div>
+                      <div class={s.time}>
+                        {item.happen_at}
+                      </div>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+              <div class={s.more}>
+                {
+                  hasMore.value ?
+                    <Button onClick={onGetItems}>加载更多</Button> :
+                    <div class={s.noMore}>没有更多</div>
+                }
               </div>
-              <div class={s.time}>
-                2000-01-01 12:39
-              </div>
-            </div>
-          </li>
-        </ol>
-        <div class={s.more}>
-          {hasMore.value ?
-            <Button onClick={onGetItems}>加载更多</Button> :
-            <span>没有更多</span>
-          }
-        </div>
+            </>
+            ) :
+            (<div>记录为空</div>)
+        }
         <FloatButton />
       </div>
     );
