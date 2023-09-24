@@ -27,7 +27,7 @@ export class Time {
         }
     }
 
-    format(pattern = 'YYYY-MM-DD') {
+    format(pattern = 'YYYY-MM-DD HH:mm:ss') {
         // 目前支持的格式有 YYYY MM DD HH mm ss SSS
         const year = this.date.getFullYear()
         const month = this.date.getMonth() + 1
