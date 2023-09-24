@@ -5,6 +5,8 @@ import { getItem } from "../../api/api";
 
 import s from './ItemSummary.module.scss'
 import { Item } from '../../type/tags';
+import { Money } from '../../shared/Money';
+import { Datetime } from '../../shared/Datetime';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -58,20 +60,22 @@ export const ItemSummary = defineComponent({
                 </li>
               </ul>
               <ol class={s.list}>
-                {items.value.map((item) => (
+                {items.value.map((item: any) => (
                   <li>
                     <div class={s.sign}>
                       <span>{item.tags[0].sign}</span>
                     </div>
                     <div class={s.text}>
                       <div class={s.tagAndAmount}>
-                        <span class={s.tag}>{item.tags[0].name}</span>
+                        <span class={s.tag}>
+                          {item.tags[0].name}
+                        </span>
                         <span class={s.amount}>
-                          ￥<>{item.amount}</>
+                          ￥<Money value={item.amount} />
                         </span>
                       </div>
                       <div class={s.time}>
-                        {item.happen_at}
+                        <Datetime value={item.happen_at} />
                       </div>
                     </div>
                   </li>
@@ -88,8 +92,8 @@ export const ItemSummary = defineComponent({
             ) :
             (<div>记录为空</div>)
         }
-        <FloatButton />
-      </div>
+        < FloatButton />
+      </div >
     );
   },
 });
