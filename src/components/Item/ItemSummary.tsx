@@ -24,6 +24,7 @@ export const ItemSummary = defineComponent({
 
     // 获取items
     const onGetItems = async () => {
+      if (!props.startData || !props.endData) return
       const response = await getItem({
         happen_after: props.startData!,
         happen_before: props.endData!,
