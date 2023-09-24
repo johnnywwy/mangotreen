@@ -110,9 +110,9 @@ export const FormItem = defineComponent({
               class={[s.formItem, s.input]} />
             <Popup position='bottom' v-model:show={refDateVisible.value}>
               <DatePicker value={props.modelValue} type="date" title="选择年月日"
-                onConfirm={(date: Date) => {
-                  console.log(new Time(date));
-                  // context.emit('update:modelValue', new Time(date).format())
+                onConfirm={({ selectedValues }: any) => {
+                  const date = selectedValues.join('-')
+                  context.emit('update:modelValue', new Time(date).format())
                   refDateVisible.value = false
                 }}
                 onCancel={() => refDateVisible.value = false} />

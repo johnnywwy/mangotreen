@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, PropType, reactive, ref } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, ref, watch } from 'vue'
 import { Button } from '../../shared/Button'
 import { FloatButton } from '../../shared/FloatButton'
 import { getBalance, getItem } from "../../api/api";
@@ -59,6 +59,30 @@ export const ItemSummary = defineComponent({
 
     onMounted(onGetItems)
     onMounted(onGetBalance)
+
+    watch(
+      () => [props.startData, props.endData],
+      () => {
+        // 重置参数
+        items.value = []
+        hasMore.value = false
+        page.value = 0
+        onGetItems()
+      }
+    )
+
+    watch(
+      () => [props.startData, props.endData],
+      () => {
+        // 重置参数
+        Object.assign(itemBalance, {
+          expenses: 0,
+          income: 0,
+          balance: 0
+        })
+        onGetBalance()
+      }
+    )
 
     return () => (
       <div class={s.wrapper}>

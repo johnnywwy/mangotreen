@@ -42,6 +42,12 @@ export const TimeTabsLayout = defineComponent({
     // 获取当前时间
     const time = new Time()
 
+    // 临时时间
+    const tempTime = reactive({
+      start: new Time().format(),
+      end: new Time().format()
+    })
+
     // 自定义时间
     const customTime = reactive<{
       start?: string
@@ -74,6 +80,10 @@ export const TimeTabsLayout = defineComponent({
     const onSubmitCustomTime = (e: Event) => {
       e.preventDefault()
       refOverlayVisible.value = false
+      console.log('tempTime', tempTime);
+      console.log('customTime', customTime);
+
+      Object.assign(customTime, tempTime)
     }
 
     // 监听自定义时间
@@ -142,8 +152,8 @@ export const TimeTabsLayout = defineComponent({
                   </header>
                   <main>
                     <Form onSubmit={onSubmitCustomTime}>
-                      <FormItem label="开始时间" v-model={customTime.start} type='date'></FormItem>
-                      <FormItem label="结束时间" v-model={customTime.end} type='date'></FormItem>
+                      <FormItem label="开始时间" v-model={tempTime.start} type='date'></FormItem>
+                      <FormItem label="结束时间" v-model={tempTime.end} type='date'></FormItem>
                       <FormItem class={s.actions}>
                         <div>
                           <button type="button" onClick={() => refOverlayVisible.value = false}>取消</button>
