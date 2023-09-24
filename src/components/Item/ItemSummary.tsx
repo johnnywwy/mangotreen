@@ -1,7 +1,7 @@
-import { defineComponent, onMounted, PropType, ref } from 'vue'
+import { defineComponent, onMounted, PropType, reactive, ref } from 'vue'
 import { Button } from '../../shared/Button'
 import { FloatButton } from '../../shared/FloatButton'
-import { getItem } from "../../api/api";
+import { getBalance, getItem } from "../../api/api";
 
 import s from './ItemSummary.module.scss'
 import { Item } from '../../type/tags';
@@ -24,6 +24,13 @@ export const ItemSummary = defineComponent({
     const hasMore = ref(false)
     const page = ref(0)
 
+    // 汇总
+    const itemBalance = reactive({
+      expenses: 0,
+      income: 0,
+      balance: 0
+    })
+
     // 获取items
     const onGetItems = async () => {
       if (!props.startData || !props.endData) return
@@ -38,7 +45,20 @@ export const ItemSummary = defineComponent({
       page.value += 1
     }
 
+    // 获取汇总参数
+    const onGetBalance = async () => {
+      if (!props.startData || !props.endData) return
+
+      const response = await getBalance({
+        happen_after: props.startData!,
+        happen_before: props.endData!,
+        page: page.value + 1,
+      })
+      Object.assign(itemBalance, response.data)
+    }
+
     onMounted(onGetItems)
+    onMounted(onGetBalance)
 
     return () => (
       <div class={s.wrapper}>
@@ -48,15 +68,21 @@ export const ItemSummary = defineComponent({
               <ul class={s.total}>
                 <li>
                   <span>收入</span>
-                  <span>128</span>
+                  <span>
+                    <Money value={itemBalance.income} />
+                  </span>
                 </li>
                 <li>
                   <span>支出</span>
-                  <span>99</span>
+                  <span>
+                    <Money value={itemBalance.expenses} />
+                  </span>
                 </li>
                 <li>
                   <span>净收入</span>
-                  <span>39</span>
+                  <span>
+                    <Money value={itemBalance.balance} />
+                  </span>
                 </li>
               </ul>
               <ol class={s.list}>
@@ -71,7 +97,7 @@ export const ItemSummary = defineComponent({
                           {item.tags[0].name}
                         </span>
                         <span class={s.amount}>
-                          ￥<Money value={item.amount} />
+                          ￥<Money value={item.amount} isShowDecimal={true} />
                         </span>
                       </div>
                       <div class={s.time}>

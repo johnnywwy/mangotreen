@@ -14,4 +14,4 @@ export const getItem = (params: Items) => http.get<Resources<Item>>('/items', pa
 
 
 // 获取收支信息
-export const getBalance = () => { }
+export const getBalance = (params: Items) => http.get<Resources<Item>>('/items/balance', params)
