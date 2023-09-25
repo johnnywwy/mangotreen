@@ -50,3 +50,9 @@ export type Items = {
   happen_before: string
   page: number
 }
+
+// 用户
+export type User = {
+  id: number
+  email: string
+}

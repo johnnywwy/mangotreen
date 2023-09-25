@@ -1,14 +1,11 @@
 import { AxiosResponse } from "axios";
 import { http } from "./Http";
+import { Resource, User } from "../type/tags";
 
-export let mePromise: Promise<AxiosResponse<{
-  resource: {
-    id: number
-  }
-}>>
+export let mePromise: Promise<AxiosResponse<Resource<User>>>
 
 export const refreshMe = () => {
-  mePromise = http.get<{ resource: { id: number } }>('/me')
+  mePromise = http.get<Resource<User>>('/me')
   return mePromise
 }
 
