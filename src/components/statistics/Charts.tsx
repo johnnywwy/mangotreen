@@ -29,7 +29,6 @@ export const Charts = defineComponent({
         <LineChart />
         <PieChart />
         <Bars />
-
       </div>
 
     </>
