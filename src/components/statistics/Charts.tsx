@@ -1,4 +1,4 @@
-import { defineComponent, PropType, ref } from "vue";
+import { defineComponent, onMounted, PropType, ref } from "vue";
 import { FormItem } from "../../shared/Form";
 import s from './Charts.module.scss'
 import { LineChart } from "./LineChart";
@@ -18,6 +18,7 @@ export const Charts = defineComponent({
   },
   setup: (props, context) => {
     const refCategory = ref('expenses')
+    onMounted(() => { })
 
     return () => <>
       <div class={s.wrapper}>

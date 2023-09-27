@@ -56,3 +56,24 @@ export type User = {
   id: number
   email: string
 }
+
+// summary
+export type SummaryDTO = {
+  happened_after: string
+  happened_before: string
+  kind: 'expenses' | 'income'
+  group_by: string
+}
+
+// summary response
+export type SummaryRes<T>= {
+  groups: T
+  total: number
+}
+
+// summary groups item
+export type groupsItem = {
+  happen_at: string,
+  tag: null,
+  amount: number
+}
