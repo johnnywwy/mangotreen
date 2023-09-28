@@ -12,7 +12,11 @@ import { Time } from "../../shared/time";
 const DAY = 24 * 3600 * 1000
 
 type Data1Item = { happen_at: string, amount: number }
+type Data2Item = { tag_id: number, amount: number }
+
 type Data1 = Data1Item[]
+type Data2 = Data2Item[]
+
 
 export const Charts = defineComponent({
   props: {
@@ -28,6 +32,7 @@ export const Charts = defineComponent({
   setup: (props, context) => {
     const refCategory = ref<"expenses" | "income">('expenses')
     const data1 = ref<Data1>([])
+    const data2 = ref<Data2>([])
     const betterData1 = computed<[string, number][]>(() => {
       if (!props.endData || !props.startData) return []
 
@@ -43,16 +48,9 @@ export const Charts = defineComponent({
         } else {
           array.push([time, 0])
         }
-
       }
-      console.log('array', array);
-
-      // return data1.value.map((item) =>
-      //   [item.happen_at, item.amount] as [string, number]
-      // )
       return array as [string, number][]
     }
-
     )
 
     const getSummary = async () => {
@@ -63,9 +61,20 @@ export const Charts = defineComponent({
         group_by: 'happen_at'
       })
       if (response.status !== 200) return
-
       data1.value = response.data.groups
 
+    }
+
+    // data2
+    const getSummary2 = async () => {
+      const response = await summary({
+        happened_after: props.startData as string,
+        happened_before: props.endData as string,
+        kind: refCategory.value,
+        group_by: 'happen_at'
+      })
+      if (response.status !== 200) return
+      data2.value = response.data.groups
 
     }
 
