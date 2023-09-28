@@ -36,7 +36,7 @@ export const Charts = defineComponent({
       const n = subDay / DAY + 1
       let data1Index = 0
       for (let i = 0; i < n; i++) {
-        const time = new Time(props.startData).add(i, 'day').format("YYYY-MM-DD")
+        const time = new Time(props.endData).add(-i, 'day').format("YYYY-MM-DD")
         if (data1.value[data1Index] && data1.value[data1Index].happen_at === time) {
           array.push([time, data1.value[data1Index].amount])
           data1Index += 1
