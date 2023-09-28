@@ -62,11 +62,11 @@ export type SummaryDTO = {
   happened_after: string
   happened_before: string
   kind: 'expenses' | 'income'
-  group_by: string
+  group_by?: string
 }
 
 // summary response
-export type SummaryRes<T>= {
+export type SummaryRes<T> = {
   groups: T
   total: number
 }
@@ -74,6 +74,6 @@ export type SummaryRes<T>= {
 // summary groups item
 export type groupsItem = {
   happen_at: string,
-  tag: null,
+  tag?: null,
   amount: number
 }

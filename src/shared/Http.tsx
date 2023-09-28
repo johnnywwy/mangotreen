@@ -91,8 +91,8 @@ http.instance.interceptors.request.use(config => {
 
 // 响应拦截
 http.instance.interceptors.response.use(response => {
-  // if (response.status === 200) return response.data
-  return response
+  if (response.status === 200) return response
+  // return response
 }, (error) => {
   if (error.response) {
     console.log('响应拦截器', error.response.data);

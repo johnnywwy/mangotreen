@@ -1,5 +1,5 @@
-import { defineComponent, onMounted, PropType, ref } from "vue";
-import s from './LineChart.module.scss';
+import { defineComponent, onMounted, PropType, ref, watch } from "vue";
+import s from './BarChart.module.scss';
 import * as echarts from 'echarts';
 import { Time } from '../../shared/time';
 import { getMoney } from "../../shared/Money";
@@ -40,17 +40,19 @@ const echartsOption = {
   },
 }
 
-export const LineChart = defineComponent({
+export const BarChart = defineComponent({
   props: {
-    name: {
-      type: String as PropType<string>,
+    data: {
+      type: Array as PropType<[string, number][]>,
+      required: true
     },
   },
   setup: (props, content) => {
     const refDiv = ref<HTMLDivElement>()
+    let refChart: echarts.ECharts | undefined = undefined
     onMounted(() => {
       if (refDiv.value === undefined) return
-      var myChart = echarts.init(refDiv.value);
+      refChart = echarts.init(refDiv.value);
       // 绘制图表
       const data = [
         ['2018-01-01T00:00:00.000+0800', 150],
@@ -86,18 +88,26 @@ export const LineChart = defineComponent({
         ['2018-01-31T00:00:00.000+0800', 1600],
       ]
 
-      myChart.setOption({
+      refChart.setOption({
         ...echartsOption,
         series: [{
           data: data,
-          type: 'line',
-          smooth: true // 使用 smooth 让折线平滑
+          type: 'bar', // 图表类型为柱状图
+          color: '#f9973c'// 设置柱状图颜色为
+        }]
+      });
+    })
+
+    watch(() => props.data, () => {
+      refChart?.setOption({
+        ...echartsOption,
+        series: [{
+          data: props.data,
         }]
       });
     })
     return () => (
       <div ref={refDiv} class={s.wrapper}></div>
-
     );
   },
 });

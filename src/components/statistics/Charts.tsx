@@ -1,9 +1,15 @@
-import { defineComponent, onMounted, PropType, ref } from "vue";
+import { computed, defineComponent, onMounted, PropType, ref } from "vue";
 import { FormItem } from "../../shared/Form";
 import s from './Charts.module.scss'
-import { LineChart } from "./LineChart";
+import { BarChart } from "./BarChart";
 import { PieChart } from "./PieChart";
 import { Bars } from "./Bars";
+import { http } from "../../shared/Http";
+import { summary } from "../../api/statistics";
+
+
+type Data1Item = { happen_at: string, amount: number }
+type Data1 = Data1Item[]
 
 export const Charts = defineComponent({
   props: {
@@ -17,8 +23,29 @@ export const Charts = defineComponent({
     }
   },
   setup: (props, context) => {
-    const refCategory = ref('expenses')
-    onMounted(() => { })
+    const refCategory = ref<"expenses" | "income">('expenses')
+    const data1 = ref<Data1>([])
+    const betterData1 = computed(() =>
+      data1.value.map((item) =>
+        [item.happen_at, item.amount] as [string, number]
+      )
+    )
+
+    const getSummary = async () => {
+      const response = await summary({
+        happened_after: props.startData as string,
+        happened_before: props.endData as string,
+        kind: refCategory.value,
+        group_by: 'happen_at'
+      })
+      if (response.status !== 200) return
+
+      data1.value = response.data.groups
+
+
+    }
+
+    onMounted(getSummary)
 
     return () => <>
       <div class={s.wrapper}>
@@ -26,8 +53,7 @@ export const Charts = defineComponent({
           { value: 'expenses', text: "支出" },
           { value: 'income', text: "收入" },
         ]} v-model={refCategory.value} />
-
-        <LineChart />
+        <BarChart data={betterData1.value} />
         <PieChart />
         <Bars />
       </div>
