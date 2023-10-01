@@ -10,9 +10,9 @@ import { Time } from "../../shared/time";
 
 
 const DAY = 24 * 3600 * 1000
-
+type Tag = { name: string, value: number }
 type Data1Item = { happen_at: string, amount: number }
-type Data2Item = { tag_id: number, amount: number }
+type Data2Item = { tag_id: number, tag: Tag, amount: number }
 
 type Data1 = Data1Item[]
 type Data2 = Data2Item[]
@@ -53,6 +53,14 @@ export const Charts = defineComponent({
     }
     )
 
+    const batterData2 = computed<{ name: string, value: number }[]>(() =>
+
+      data2.value.map(item => ({
+        name: item.tag.name,
+        value: item.amount
+      }))
+    )
+
     const getSummary = async () => {
       const response = await summary({
         happened_after: props.startData as string,
@@ -71,7 +79,7 @@ export const Charts = defineComponent({
         happened_after: props.startData as string,
         happened_before: props.endData as string,
         kind: refCategory.value,
-        group_by: 'happen_at'
+        group_by: 'tag_id'
       })
       if (response.status !== 200) return
       data2.value = response.data.groups
@@ -79,6 +87,7 @@ export const Charts = defineComponent({
     }
 
     onMounted(getSummary)
+    onMounted(getSummary2)
 
     return () => <>
       <div class={s.wrapper}>
@@ -87,7 +96,7 @@ export const Charts = defineComponent({
           { value: 'income', text: "收入" },
         ]} v-model={refCategory.value} />
         <BarChart data={betterData1.value} />
-        <PieChart />
+        <PieChart data={batterData2.value} />
         <Bars />
       </div>
 

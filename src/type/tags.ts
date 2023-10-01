@@ -75,5 +75,6 @@ export type SummaryRes<T> = {
 export type groupsItem = {
   happen_at: string,
   tag?: null,
-  amount: number
+  amount: number,
+  tag_id?: number
 }
