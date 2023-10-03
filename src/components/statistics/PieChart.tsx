@@ -27,6 +27,9 @@ const defaultOption = {
     top: '5%',
     left: 'center'
   },
+  grid: [
+    { left: 0, top: 0, right: 0, bottom: 0 }
+  ],
   series: [
     {
       type: 'pie',
