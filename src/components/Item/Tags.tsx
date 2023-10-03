@@ -4,7 +4,7 @@ import { getTagsList } from "../../api/tags";
 import { Button } from "../../shared/Button";
 import { Icon } from "../../shared/Icon";
 import { useTags } from "../../shared/useTags";
-import { Tag } from "../../type/tags";
+import { TagDTO } from "../../type/tags";
 import s from './Tags.module.scss';
 
 export const Tags = defineComponent({
@@ -21,7 +21,7 @@ export const Tags = defineComponent({
   setup: (props, context) => {
     const router = useRouter()
 
-    const onSelect = (tag: Tag) => {
+    const onSelect = (tag: TagDTO) => {
       context.emit('update:selected', [tag.id])
     }
 
@@ -47,7 +47,7 @@ export const Tags = defineComponent({
     }
 
     // 开始长按
-    const onTouchStart = (e: TouchEvent, tag: Tag) => {
+    const onTouchStart = (e: TouchEvent, tag: TagDTO) => {
       currentTag.value = e.currentTarget as HTMLDivElement
       timer.value = setTimeout(() => {
         onLongPress(tag.id)

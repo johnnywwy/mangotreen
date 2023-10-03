@@ -6,7 +6,7 @@ import { Button } from "../../shared/Button";
 // import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Form, FormItem } from "../../shared/Form";
 import { hasError, Rules, validate } from "../../shared/validate";
-import { Tag } from '../../type/tags';
+import { TagDTO } from '../../type/tags';
 import s from "./Tag.module.scss";
 export const TagForm = defineComponent({
     props: {
@@ -15,7 +15,7 @@ export const TagForm = defineComponent({
     setup: (props, context) => {
         const route = useRoute()
         const router = useRouter()
-        const formData = reactive<Partial<Tag>>({
+        const formData = reactive<Partial<TagDTO>>({
             id: undefined,
             name: "",
             sign: "",

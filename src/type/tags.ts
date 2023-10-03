@@ -7,12 +7,12 @@ export type tagsDTO = {
 
 
 // 收入支出 标签类型
-export type Tag = {
-  id: number;
-  user_id: number;
+export type TagDTO = {
+  id?: number;
+  user_id?: number;
   name: string;
   sign: string;
-  kind: "expenses" | "income"
+  kind?: "expenses" | "income"
 }
 
 // 后端返回
@@ -36,7 +36,7 @@ export type Item = {
   tag_ids: number[]
   happen_at: string
   kind: 'expenses' | 'income'
-  tags?: Tag[]
+  tags?: TagDTO[]
 }
 
 // 报错信息

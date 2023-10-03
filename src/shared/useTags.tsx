@@ -1,15 +1,15 @@
 import { AxiosResponse } from "axios";
 import { onMounted, ref } from "vue";
-import { Resources, Tag } from "../type/tags";
+import { Resources, TagDTO } from "../type/tags";
 import { http } from "./Http";
 
-type Fetcher = (page: number) => Promise<AxiosResponse<Resources<Tag>>>
+type Fetcher = (page: number) => Promise<AxiosResponse<Resources<TagDTO>>>
 export const useTags = (fetcher: Fetcher) => {
 
   const page = ref(0)
   const hasMore = ref(false)
   // 支出标签
-  const tags = ref<Tag[]>([]);
+  const tags = ref<TagDTO[]>([]);
 
   // 收入标签
   // const refIncomeTags = ref<Tag[]>([]);

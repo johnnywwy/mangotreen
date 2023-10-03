@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { AxiosRequestConfig } from 'axios'
-import { Tag, Resources } from '../type/tags'
+import { TagDTO, Resources } from '../type/tags'
 
 type Mock = (config: AxiosRequestConfig) => [number, any]
 
