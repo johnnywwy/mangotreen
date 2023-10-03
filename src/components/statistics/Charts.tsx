@@ -4,13 +4,13 @@ import s from './Charts.module.scss'
 import { BarChart } from "./BarChart";
 import { PieChart } from "./PieChart";
 import { Bars } from "./Bars";
-import { http } from "../../shared/Http";
 import { summary } from "../../api/statistics";
 import { Time } from "../../shared/time";
+import { TagDTO } from "../../type/tags";
 
 
 const DAY = 24 * 3600 * 1000
-type Tag = { name: string, value: number }
+type Tag = { name: string, value: number, sign: number }
 type Data1Item = { happen_at: string, amount: number }
 type Data2Item = { tag_id: number, tag: Tag, amount: number }
 
@@ -54,11 +54,19 @@ export const Charts = defineComponent({
     )
 
     const batterData2 = computed<{ name: string, value: number }[]>(() =>
-
       data2.value.map(item => ({
         name: item.tag.name,
         value: item.amount
       }))
+    )
+
+    const batterData3 = computed<{ tag: Tag, amount: number, percent: number }[]>(() => {
+      const total = data2.value.reduce((sum, item) => sum + item.amount, 0)
+      return data2.value.map((item) => ({
+        ...item,
+        percent: Math.round(item.amount / total * 100)
+      }))
+    }
     )
 
     const getSummary = async () => {
@@ -83,7 +91,6 @@ export const Charts = defineComponent({
       })
       if (response.status !== 200) return
       data2.value = response.data.groups
-
     }
 
     onMounted(getSummary)
@@ -97,7 +104,7 @@ export const Charts = defineComponent({
         ]} v-model={refCategory.value} />
         <BarChart data={betterData1.value} />
         <PieChart data={batterData2.value} />
-        <Bars />
+        <Bars data={batterData3.value} />
       </div>
 
     </>
