@@ -6,7 +6,6 @@ import { PieChart } from "./PieChart";
 import { Bars } from "./Bars";
 import { summary } from "../../api/statistics";
 import { Time } from "../../shared/time";
-import { TagDTO } from "../../type/tags";
 
 
 const DAY = 24 * 3600 * 1000
