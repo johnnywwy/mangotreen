@@ -1,4 +1,4 @@
-import { computed, defineComponent, onMounted, PropType, ref } from "vue";
+import { computed, defineComponent, onMounted, PropType, ref, watch } from "vue";
 import { FormItem } from "../../shared/Form";
 import s from './Charts.module.scss'
 import { BarChart } from "./BarChart";
@@ -17,7 +17,10 @@ type Data2Item = { tag_id: number, tag: Tag, amount: number }
 type Data1 = Data1Item[]
 type Data2 = Data2Item[]
 
-
+const option = [
+  { value: 'expenses', text: "支出" },
+  { value: 'income', text: "收入" },
+]
 export const Charts = defineComponent({
   props: {
     startData: {
@@ -30,7 +33,7 @@ export const Charts = defineComponent({
     }
   },
   setup: (props, context) => {
-    const refCategory = ref<"expenses" | "income">('expenses')
+    const kind = ref<"expenses" | "income">('expenses')
     const data1 = ref<Data1>([])
     const data2 = ref<Data2>([])
     const betterData1 = computed<[string, number][]>(() => {
@@ -73,7 +76,7 @@ export const Charts = defineComponent({
       const response = await summary({
         happened_after: props.startData as string,
         happened_before: props.endData as string,
-        kind: refCategory.value,
+        kind: kind.value,
         group_by: 'happen_at'
       })
       if (response.status !== 200) return
@@ -86,22 +89,22 @@ export const Charts = defineComponent({
       const response = await summary({
         happened_after: props.startData as string,
         happened_before: props.endData as string,
-        kind: refCategory.value,
+        kind: kind.value,
         group_by: 'tag_id'
       })
       if (response.status !== 200) return
       data2.value = response.data.groups
     }
 
+    watch(() => kind.value, getSummary)
+    watch(() => kind.value, getSummary2)
+
     onMounted(getSummary)
     onMounted(getSummary2)
 
     return () => <>
       <div class={s.wrapper}>
-        <FormItem label="类型" type="select" options={[
-          { value: 'expenses', text: "支出" },
-          { value: 'income', text: "收入" },
-        ]} v-model={refCategory.value} />
+        <FormItem label="类型" type="select" v-model={kind.value} options={option} />
         <BarChart data={betterData1.value} />
         <PieChart data={batterData2.value} />
         <Bars data={batterData3.value} />
