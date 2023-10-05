@@ -13,19 +13,25 @@ export type createTagsDTO = {
 }
 
 // 获取标签
-export const getTags = (id: number) => http.patch<Resource<TagDTO>>(`/tags/${id}`)
+export const getTags = (id: number) =>
+  http.patch<Resource<TagDTO>>(`/tags/${id}`)
 
 // 创建标签
-export const createTag = (params: createTagsDTO) => http.post('/tags', params)
+export const createTag = (params: createTagsDTO, _autoLoading?: boolean) =>
+  http.post<Resource<TagDTO>>('/tags', params, { _autoLoading })
 
 // 修改标签
-export const updateTag = (id: number, params: Partial<TagDTO>) => http.patch<Resource<TagDTO>>(`/tags/${id}`, params)
+export const updateTag = (id: number, params: Partial<TagDTO>) =>
+  http.patch<Resource<TagDTO>>(`/tags/${id}`, params)
 
 // 删除标签
-export const deleteTag = (id: number, options?: { withItems: 'true' | 'false' }) => http.delete<Resource<TagDTO>>(`/tags/${id}`, options)
+export const deleteTag = (id: number, options?: { withItems: 'true' | 'false' }, _autoLoading?: boolean) =>
+  http.delete<Resource<TagDTO>>(`/tags/${id}`, options, { _autoLoading })
 
 // 删除标签和记账
-export const deleteTagAndItems = () => (id: number) => http.delete<Resource<TagDTO>>(`/tags/${id}`)
+export const deleteTagAndItems = () => (id: number) =>
+  http.delete<Resource<TagDTO>>(`/tags/${id}`)
 
 // 获取标签列表
-export const getTagsList = (params: tagsDTO) => http.get<Resources<TagDTO>>('/tags', params)
+export const getTagsList = (params: tagsDTO, _autoLoading?: boolean) =>
+  http.get<Resources<TagDTO>>('/tags', params, { _autoLoading })

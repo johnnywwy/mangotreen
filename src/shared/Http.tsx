@@ -21,8 +21,6 @@ export class Http {
   }
   // create
   post<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PostConfig) {
-    console.log('post', this.instance.request);
-
     return this.instance.request<R>({ ...config, url, data, method: 'post' })
   }
   // update
@@ -80,9 +78,6 @@ http.instance.interceptors.request.use(config => {
       duration: 0
     });
   }
-  console.log('config', config);
-
-
   return config
 })
 

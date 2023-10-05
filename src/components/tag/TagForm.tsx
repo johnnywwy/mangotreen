@@ -24,8 +24,7 @@ export const TagForm = defineComponent({
         const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
         // 创建tags
         const onCreateTags = async (formData: any) => {
-            console.log('触发了', formData);
-            const res = await createTag(formData)
+            const res = await createTag(formData, true)
             if (res.data) {
                 showToast({
                     message: '创建成功', icon: 'success', duration: 800,
@@ -73,6 +72,8 @@ export const TagForm = defineComponent({
             Object.assign(errors, validate(formData, rules));
 
             if (!hasError(errors)) {
+                console.log('12221');
+
                 if (!formData.id) {
                     onCreateTags(formData)
                 } else {

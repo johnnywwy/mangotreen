@@ -38,7 +38,7 @@ export const ItemSummary = defineComponent({
         happen_after: props.startData!,
         happen_before: props.endData!,
         page: page.value + 1,
-      })
+      }, true)
       const { resources, pager } = response.data
       items.value?.push(...resources)
       hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count

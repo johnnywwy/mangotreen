@@ -24,19 +24,34 @@ export const TagEdit = defineComponent({
         message:
           '删除后无法恢复哦！',
       })
-      await deleteTag(numberId).then(() => {
-        showToast({
-          message: '删除成功', icon: 'success', duration: 800,
-          onClose: () => { router.back() }
-        });
-      })
+      const response = await deleteTag(numberId)
+      if (response.status !== 200) return
+
+      showToast({
+        message: '删除成功', icon: 'success', duration: 800,
+        onClose: () => { router.back() }
+      });
+
     }
 
     // 删除标签和记账
     const onDeleteTagAndItem = async () => {
-      // const response = await deleteTag(numberId, {
-      //   withItems: "true"
-      // })
+      await showConfirmDialog({
+        title: '确认',
+        message:
+          '删除后无法恢复哦！',
+      })
+
+      const response = await deleteTag(numberId, {
+        withItems: "true"
+      }, true)
+      if (response.status !== 200) return
+
+      showToast({
+        message: '删除成功', icon: 'success', duration: 800,
+        onClose: () => { router.back() }
+      });
+
     }
     return () => (
       <MainLayout>

@@ -30,7 +30,7 @@ export const Tags = defineComponent({
       return getTagsList({
         kind: props.kind,
         page: page + 1,
-      })
+      }, true)
     })
 
     // 长按计时器
