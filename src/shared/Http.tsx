@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { showLoadingToast, closeToast } from "vant";
 import { mockSession, mockTagIndex } from "../mock/mock";
 type JSONValue = string | number | null | boolean | JSONValue[] | { [key: string]: JSONValue };
 
@@ -20,6 +21,8 @@ export class Http {
   }
   // create
   post<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PostConfig) {
+    console.log('post', this.instance.request);
+
     return this.instance.request<R>({ ...config, url, data, method: 'post' })
   }
   // update
@@ -65,11 +68,21 @@ const mock = (response: AxiosResponse) => {
 // 请求拦截
 http.instance.interceptors.request.use(config => {
   const token = localStorage.getItem("jwt")?.replace(/["']/g, '')
-  // console.log('token', token);
 
   if (token) {
     config.headers!.Authorization = `Bearer ${token}`
   }
+
+  if (config._autoLoading === true) {
+    showLoadingToast({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 0
+    });
+  }
+  console.log('config', config);
+
+
   return config
 })
 
@@ -89,8 +102,22 @@ http.instance.interceptors.request.use(config => {
 // })
 
 
-// 响应拦截
 http.instance.interceptors.response.use(response => {
+  if (response.config._autoLoading === true) {
+    closeToast();
+  }
+
+  return response
+}, (error: AxiosError) => {
+  if (error.response?.config._autoLoading === true) {
+    closeToast();
+  }
+  throw error
+})
+
+
+// 响应拦截
+http.instance.interceptors.response.use((response) => {
   if (response.status === 200) return response
   // return response
 }, (error) => {
@@ -107,3 +134,5 @@ http.instance.interceptors.response.use(response => {
   }
   throw error
 })
+
+

@@ -1,16 +1,18 @@
-import { Transition, defineComponent, ref } from "vue";
+import { Transition, defineComponent, ref, onMounted } from "vue";
 import { Button } from "../shared/Button";
 import { Center } from "../shared/Center";
 import { FloatButton } from "../shared/FloatButton";
 import { Icon } from "../shared/Icon";
-import { Navbar } from "../shared/Navbar";
 import s from "./startPage.module.scss";
 import { RouterLink } from "vue-router";
 import { MainLayout } from "../layouts/MainLayout";
 import { OverLay } from "../shared/OverLay";
+
 export const StartPage = defineComponent({
   setup: (props, content) => {
     const overLayVisible = ref(false);
+
+
     const onClickMenu = () => {
       console.log("click");
 

@@ -79,17 +79,13 @@ export const SignInPage = defineComponent({
     const onClickSendValidationCode = async () => {
       refValidationCodeDisabled.value = true
 
-      const response = await sendValidationCodes(formData.email)
+
+      const response = await sendValidationCodes(formData.email, true)
       console.log('获取验证码', response);
 
       if (!response) return
       refValidationCodeDisabled.value = false
-      // const response = await http
-      //   .post('/validation_codes', { email: formData.email })
-      //   .catch(onError)
-      //   .finally(() => {
-      //     refValidationCodeDisabled.value = false
-      //   })
+
       validationCode.value.startCount()
     }
 
