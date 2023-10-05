@@ -72,36 +72,25 @@ export const InputPad = defineComponent({
 
     // 按键
     const buttons = [
-      { text: "1", onClick: () => { appendText(1) } },
-      { text: "2", onClick: () => { appendText(2) } },
-      { text: "3", onClick: () => { appendText(3) } },
-      { text: "清空", onClick: () => { refAmount.value = "0" } },
-      { text: "4", onClick: () => { appendText(4) } },
-      { text: "5", onClick: () => { appendText(5) } },
-      { text: "6", onClick: () => { appendText(6) } },
+      { text: '1', onClick: () => { appendText(1) } },
+      { text: '2', onClick: () => { appendText(2) } },
+      { text: '3', onClick: () => { appendText(3) } },
+      { text: '4', onClick: () => { appendText(4) } },
+      { text: '5', onClick: () => { appendText(5) } },
+      { text: '6', onClick: () => { appendText(6) } },
+      { text: '7', onClick: () => { appendText(7) } },
+      { text: '8', onClick: () => { appendText(8) } },
+      { text: '9', onClick: () => { appendText(9) } },
+      { text: '.', onClick: () => { appendText('.') } },
+      { text: '0', onClick: () => { appendText(0) } },
+      { text: '清空', onClick: () => { refAmount.value = '0' } },
       {
-        text: "删除",
+        text: '提交',
         onClick: () => {
-          if (refAmount.value.length == 1) {
-            refAmount.value = "0";
-            return;
-          }
-          refAmount.value = refAmount.value.slice(0, -1);
-        },
-      },
-      { text: "7", onClick: () => { appendText(7) } },
-      { text: "8", onClick: () => { appendText(8) } },
-      { text: "9", onClick: () => { appendText(9) } },
-      {
-        text: "确定", onClick: () => {
           context.emit('update:amount', parseFloat(refAmount.value) * 100)
           props.onSubmit?.()
         }
-      },
-      { text: "0", onClick: () => { appendText(0) } },
-      { text: ".", onClick: () => { appendText(".") } },
-
-
+      }
     ];
 
     return () => (
