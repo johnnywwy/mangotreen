@@ -105,7 +105,7 @@ export const InputPad = defineComponent({
             >
               <DatePicker
                 v-model={currentDate.value}
-                value={props.happenAt}
+                modelValue={props.happenAt}
                 type="data"
                 title="选择年月日"
                 onConfirm={setDate} onCancel={hideDatePicker}
