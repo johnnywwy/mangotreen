@@ -90,7 +90,7 @@ export const Charts = defineComponent({
         happened_before: props.endData as string,
         kind: kind.value,
         group_by: 'tag_id'
-      }, true)
+      })
       if (response.status !== 200) return
       data2.value = response.data.groups
     }
