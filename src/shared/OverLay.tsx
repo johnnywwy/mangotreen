@@ -1,7 +1,7 @@
 import { defineComponent, onMounted, PropType, ref } from "vue";
 import s from "./OverLay.module.scss";
 import { Icon } from "./Icon";
-import { RouterLink, useRoute,useRouter } from "vue-router";
+import { RouterLink, useRoute, useRouter } from "vue-router";
 import { mePromise } from "./me";
 import { User } from "../type/tags";
 import { Email } from "./Email";
@@ -61,9 +61,9 @@ export const OverLay = defineComponent({
           <nav>
             <ul class={s.action_list}>
               <li>
-                <RouterLink to="/statistics" class={s.action}>
+                <RouterLink to="/statisticsPage" class={s.action}>
                   <Icon name="statistics" class={s.icon} />
-                  <span>导出数据</span>
+                  <span>统计图表</span>
                 </RouterLink>
               </li>
               <li>
