@@ -10,6 +10,7 @@ import { Tags } from "./Tags";
 import { createItem } from "../../api/api";
 import { showToast } from "vant";
 import { AxiosError } from "axios";
+
 export const ItemCreate = defineComponent({
   props: {
     name: {
@@ -21,7 +22,7 @@ export const ItemCreate = defineComponent({
     const refKind = ref("支出");
 
     const formData = reactive<Item>({
-      kind: 'expenses',
+      kind: 'income',
       tag_ids: [],
       happen_at: new Date().toISOString(),
       amount: 0,
@@ -39,7 +40,9 @@ export const ItemCreate = defineComponent({
     const onSubmit = async () => {
       console.log('提交', formData);
       // getTagsList
-      const response = await createItem(formData).catch(onError)
+      const response = await createItem(formData, true).catch(onError)
+      console.log('response', response);
+      if (!response?.status) return
       showToast({ message: '创建成功', icon: 'success', duration: 800 });
       router.push('/item')
 
