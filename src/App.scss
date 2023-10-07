@@ -18,6 +18,8 @@ body {
 
 .customTabs_tabs_nav{
   justify-content: flex-start !important;
+  position: sticky !important;
+  top: 84px !important;
 
   & > &_item{
     flex-grow: 0;

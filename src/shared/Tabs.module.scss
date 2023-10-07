@@ -11,7 +11,7 @@
     color: var(--navbar-text);
     position: sticky;
     z-index: 1;
-    top: 84px; /* 添加像素单位 */
+    top: 0; /* 添加像素单位 */
     background: var(--navbar-bg-end);
 
     > li {

@@ -121,7 +121,7 @@ export const TimeTabsLayout = defineComponent({
           ),
           default: () => (
             <>
-              <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
+              <Tabs class={s.tabs} classPrefix={'customTabs'} v-model:selected={refSelected.value}
                 onUpdate:selected={onSelect} rerender={props.rerenderOnChange}
               >
                 <Tab name="本月">
