@@ -62,10 +62,10 @@ export const TagEdit = defineComponent({
             <>
               <TagForm id={numberId} />
               <div class={s.actions}>
-                <Button level="danger"
-                  class={s.removeTag} onClick={onDeleteTag}>删除标签</Button>
-                <Button level="danger"
-                  class={s.removeTagAndItem} onClick={onDeleteTagAndItem}>删除标签和记账</Button>
+                <Button
+                  level="danger"
+                  class={s.removeTagsAndItems}
+                  onClick={onDeleteTagAndItem}>删除标签和记账</Button>
               </div>
             </>
           ),
