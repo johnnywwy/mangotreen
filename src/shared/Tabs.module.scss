@@ -1,6 +1,7 @@
 .tabs {
   width: 100%;
   position: relative;
+  // border: 1px solid red;
 
   &_nav {
     display: flex;
@@ -10,7 +11,7 @@
     color: var(--navbar-text);
     position: sticky;
     z-index: 1;
-    top: 0;
+    top: 84px; /* 添加像素单位 */
     background: var(--navbar-bg-end);
 
     > li {
