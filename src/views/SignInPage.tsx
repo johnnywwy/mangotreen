@@ -7,8 +7,8 @@ import s from "./SignInPage.module.scss";
 import { hasError, Rules, validate } from "../shared/validate";
 import { http } from "../shared/Http";
 import { useRoute, useRouter } from "vue-router";
-import { refreshMe } from "../shared/me";
 import { sendValidationCodes } from "../api/api";
+import { useMeStore } from "../store/use";
 
 export const SignInPage = defineComponent({
   props: {
@@ -17,6 +17,8 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
+    const { refreshMe } = useMeStore()
+
     const router = useRouter()
     const route = useRoute()
     const validationCode = ref<any>()
