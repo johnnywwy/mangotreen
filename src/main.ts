@@ -7,7 +7,12 @@ import "@svgstore";
 // 2. 引入组件样式
 import 'vant/lib/index.css';
 import { mePromise, fetchMe } from "./shared/me";
+
+// 引入pinia
+import { createPinia } from 'pinia'
+
 const router = createRouter({ history, routes });
+const pinia = createPinia()
 
 
 fetchMe()
@@ -37,6 +42,7 @@ router.beforeEach((to, from) => {
   )
 
 })
-const app = createApp(App);
-app.use(router);
-app.mount("#app");
+const app = createApp(App)
+app.use(pinia)
+app.use(router)
+app.mount("#app")
