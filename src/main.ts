@@ -21,6 +21,19 @@ const whiteList: Record<'exac' | 'startsWith', string[]> = {
   'startsWith': ['/welcome', '/sign_in']
 }
 
+
+const app = createApp(App);
+app.use(router);
+app.use(pinia);
+app.mount("#app");
+
+
+
+const meStore = useMeStore()
+
+meStore.fetchMe()
+
+
 router.beforeEach((to, from) => {
   for (let key in whiteList) {
     if (key === 'exac') {
@@ -35,19 +48,8 @@ router.beforeEach((to, from) => {
     }
   }
 
-  return mePromise!.then(
+  return meStore.mePromise!.then(
     () => true,
     () => '/sign_in?redirect=' + to.path
   )
-
 })
-const app = createApp(App);
-app.use(router);
-app.use(pinia);
-app.mount("#app");
-
-
-
-const { fetchMe, mePromise } = useMeStore()
-
-fetchMe()

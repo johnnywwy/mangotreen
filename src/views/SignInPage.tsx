@@ -17,7 +17,7 @@ export const SignInPage = defineComponent({
     },
   },
   setup: (props, context) => {
-    const { refreshMe } = useMeStore()
+    const meStore = useMeStore()
 
     const router = useRouter()
     const route = useRoute()
@@ -62,7 +62,7 @@ export const SignInPage = defineComponent({
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
         // const redirectTo = localStorage.getItem('RedirectTo')
         const redirect = route.query.redirect?.toString()
-        refreshMe().then(() => {
+        meStore.refreshMe().then(() => {
           router.push(redirect || '/start')
         }, () => {
           alert('登录失败 !')

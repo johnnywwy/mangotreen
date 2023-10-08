@@ -14,7 +14,7 @@ export const OverLay = defineComponent({
     },
   },
   setup: (props, content) => {
-    const { mePromise } = useMeStore()
+    const meStore = useMeStore()
     const route = useRoute()
     const router = useRouter()
     const close = () => {
@@ -35,7 +35,7 @@ export const OverLay = defineComponent({
     const me = ref<User>()
 
     onMounted(async () => {
-      const response = await mePromise
+      const response = await meStore.mePromise
       me.value = response?.data.resource
     })
 
