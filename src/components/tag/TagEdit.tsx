@@ -57,15 +57,15 @@ export const TagEdit = defineComponent({
       <MainLayout>
         {{
           title: () => "编辑标签",
-          icon: () => <Icon name="left" class={s.icon} onClick={() => { }} />,
+          icon: () => <Icon name="left" class={s.icon} onClick={() => { router.back(); }} />,
           default: () => (
             <>
               <TagForm id={numberId} />
               <div class={s.actions}>
-                <Button level="danger"
-                  class={s.removeTag} onClick={onDeleteTag}>删除标签</Button>
-                <Button level="danger"
-                  class={s.removeTagAndItem} onClick={onDeleteTagAndItem}>删除标签和记账</Button>
+                <Button
+                  level="danger"
+                  class={s.removeTagsAndItems}
+                  onClick={onDeleteTagAndItem}>删除标签和记账</Button>
               </div>
             </>
           ),

@@ -7,6 +7,7 @@ import s from './ItemSummary.module.scss'
 import { Item } from '../../type/tags';
 import { Money } from '../../shared/Money';
 import { Datetime } from '../../shared/Datetime';
+import { RouterLink } from 'vue-router';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -142,7 +143,9 @@ export const ItemSummary = defineComponent({
             ) :
             (<div>记录为空</div>)
         }
-        < FloatButton />
+        <RouterLink to={"/item/create"}>
+          < FloatButton />
+        </RouterLink>
       </div >
     );
   },
