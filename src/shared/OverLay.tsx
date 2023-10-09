@@ -5,7 +5,7 @@ import { RouterLink, useRoute, useRouter } from "vue-router";
 import { User } from "../type/tags";
 import { Email } from "./Email";
 import { showConfirmDialog } from "vant";
-import { useMeStore } from "../store/use";
+import { useMeStore } from "../store/useMeStore";
 
 export const OverLay = defineComponent({
   props: {

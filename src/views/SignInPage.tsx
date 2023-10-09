@@ -8,7 +8,7 @@ import { hasError, Rules, validate } from "../shared/validate";
 import { http } from "../shared/Http";
 import { useRoute, useRouter } from "vue-router";
 import { sendValidationCodes } from "../api/api";
-import { useMeStore } from "../store/use";
+import { useMeStore } from "../store/useMeStore";
 
 export const SignInPage = defineComponent({
   props: {

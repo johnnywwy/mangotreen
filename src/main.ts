@@ -7,7 +7,7 @@ import { history } from "./shared/history";
 import "@svgstore";
 // 2. 引入组件样式
 import 'vant/lib/index.css';
-import { useMeStore } from "./store/use";
+import { useMeStore } from "./store/useMeStore";
 
 // 引入pinia
 
