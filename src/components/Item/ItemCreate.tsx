@@ -8,8 +8,10 @@ import { useRouter } from "vue-router";
 import { Item, ResourceError } from "../../type/tags";
 import { Tags } from "./Tags";
 import { createItem } from "../../api/api";
-import { showToast } from "vant";
+import { Dialog, showToast } from "vant";
 import { AxiosError } from "axios";
+import { FormError } from "../../env";
+import { hasError, Rules, validate } from "../../shared/validate";
 
 export const ItemCreate = defineComponent({
   props: {
@@ -22,11 +24,26 @@ export const ItemCreate = defineComponent({
     const refKind = ref("支出");
 
     const formData = reactive<Item>({
-      kind: 'income',
+      kind: refKind.value === '支出' ? 'expenses' : 'income',
       tag_ids: [],
       happen_at: new Date().toISOString(),
       amount: 0,
     })
+
+    const errors = reactive<FormError<typeof formData>>({
+      kind: [],
+      tag_ids: [],
+      happen_at: [],
+      amount: []
+    })
+
+    const rules: Rules<typeof formData> = [
+      { key: "kind", type: "required", message: "必填" },
+      { key: "tag_ids", type: "required", message: "必填" },
+      { key: "amount", type: "required", message: "必填", },
+      { key: "amount", type: "notEqual", value: 0, message: "金额不能为零" },
+      { key: "happen_at", type: "required", message: "时间必填", }
+    ]
 
     const onError = (err: AxiosError<ResourceError>) => {
       if (err.response?.status === 422) {
@@ -39,7 +56,19 @@ export const ItemCreate = defineComponent({
 
     const onSubmit = async () => {
       console.log('提交', formData);
-      // getTagsList
+      // 清空
+      Object.assign(errors, { kind: [], tag_ids: [], happen_at: [], amount: [] })
+      Object.assign(errors, validate(formData, rules))
+      console.log('errors', errors);
+
+      if (hasError(errors)) {
+        showToast({
+          icon: 'warning',
+          message: Object.values(errors).filter(i => i.length > 0).join('\n'),
+          duration: 800
+        })
+        return
+      }
       const response = await createItem(formData, true).catch(onError)
       console.log('response', response);
       if (!response?.status) return
@@ -76,7 +105,7 @@ export const ItemCreate = defineComponent({
                     <Tags kind="income" v-model:selected={formData.tag_ids} />
                   </Tab>
                 </Tabs>
-                <div>{JSON.stringify(formData)}</div>
+                {/* <div>{JSON.stringify(formData)}</div> */}
                 <div class={s.inputPad_wrapper}>
                   <InputPad
                     v-model:happenAt={formData.happen_at}

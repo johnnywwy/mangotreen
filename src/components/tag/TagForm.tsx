@@ -2,6 +2,7 @@ import { showToast } from 'vant';
 import { defineComponent, onMounted, PropType, reactive, toRaw } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { createTag, getTags, updateTag } from '../../api/api';
+import { FormError } from '../../env';
 import { Button } from "../../shared/Button";
 // import { EmojiSelected } from "../../shared/EmojiSelected";
 import { Form, FormItem } from "../../shared/Form";
@@ -21,7 +22,7 @@ export const TagForm = defineComponent({
             sign: "",
             kind: route.query.kind!.toString() as "expenses" | "income",
         });
-        const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({});
+        const errors = reactive<FormError<typeof formData>>({});
         // 创建tags
         const onCreateTags = async (formData: any) => {
             const res = await createTag(formData, true)
