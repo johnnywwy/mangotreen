@@ -2,10 +2,10 @@ import { defineComponent, onMounted, PropType, ref } from "vue";
 import s from "./OverLay.module.scss";
 import { Icon } from "./Icon";
 import { RouterLink, useRoute, useRouter } from "vue-router";
-import { mePromise } from "./me";
 import { User } from "../type/tags";
 import { Email } from "./Email";
-import { Dialog, showConfirmDialog } from "vant";
+import { showConfirmDialog } from "vant";
+import { useMeStore } from "../store/use";
 
 export const OverLay = defineComponent({
   props: {
@@ -14,6 +14,7 @@ export const OverLay = defineComponent({
     },
   },
   setup: (props, content) => {
+    const meStore = useMeStore()
     const route = useRoute()
     const router = useRouter()
     const close = () => {
@@ -34,8 +35,8 @@ export const OverLay = defineComponent({
     const me = ref<User>()
 
     onMounted(async () => {
-      const response = await mePromise
-      me.value = response.data.resource
+      const response = await meStore.mePromise
+      me.value = response?.data.resource
     })
 
     return () => (
