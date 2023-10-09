@@ -8,6 +8,7 @@ import { Item } from '../../type/tags';
 import { Money } from '../../shared/Money';
 import { Datetime } from '../../shared/Datetime';
 import { RouterLink } from 'vue-router';
+import { useAfterMe } from '../../hooks/useAfterMe';
 
 export const ItemSummary = defineComponent({
   props: {
@@ -58,8 +59,10 @@ export const ItemSummary = defineComponent({
       Object.assign(itemBalance, response.data)
     }
 
-    onMounted(onGetItems)
-    onMounted(onGetBalance)
+    useAfterMe(onGetItems)
+    useAfterMe(onGetBalance)
+    // onMounted(onGetItems)
+    // onMounted(onGetBalance)
 
     watch(
       () => [props.startData, props.endData],
