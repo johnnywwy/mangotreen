@@ -33,7 +33,7 @@ router.beforeEach((to, from) => {
 
   return mePromise.then(
     () => true,
-    () => '/sign_in?redirect=' + to.path
+    () => '/sign_in?redirect=' + from.path
   )
 
 })
