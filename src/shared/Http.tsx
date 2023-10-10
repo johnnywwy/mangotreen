@@ -33,7 +33,7 @@ export class Http {
   }
 }
 
-export const http = new Http('/api/v1')
+export const http = new Http('https://mangosteen2.hunger-valley.com/api/v1')
 
 const mock = (response: AxiosResponse) => {
   if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
