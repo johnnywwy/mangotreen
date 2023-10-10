@@ -39,7 +39,7 @@ export const SignInPage = defineComponent({
           key: "email",
           type: "pattern",
           message: "请输入正确的邮箱地址",
-          regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+./,
+          regex: /.+@.+/,
         },
         {
           key: "code",
@@ -62,11 +62,8 @@ export const SignInPage = defineComponent({
         localStorage.setItem('jwt', JSON.stringify(response.data.jwt))
         // const redirectTo = localStorage.getItem('RedirectTo')
         const redirect = route.query.redirect?.toString()
-        meStore.refreshMe().then(() => {
-          router.push(redirect || '/start')
-        }, () => {
-          alert('登录失败 !')
-        })
+        meStore.refreshMe()
+        router.push(redirect || '/')
       }
     }
 
