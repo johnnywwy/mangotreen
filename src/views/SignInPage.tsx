@@ -39,7 +39,7 @@ export const SignInPage = defineComponent({
           key: "email",
           type: "pattern",
           message: "请输入正确的邮箱地址",
-          regExp: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+./,
+          regex: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+./,
         },
         {
           key: "code",
