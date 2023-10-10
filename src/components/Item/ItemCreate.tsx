@@ -8,7 +8,7 @@ import { useRouter } from "vue-router";
 import { Item, ResourceError } from "../../type/tags";
 import { Tags } from "./Tags";
 import { createItem } from "../../api/api";
-import { Dialog, showToast } from "vant";
+import { showToast } from "vant";
 import { AxiosError } from "axios";
 import { FormError } from "../../env";
 import { hasError, Rules, validate } from "../../shared/validate";
