@@ -89,67 +89,73 @@ export const ItemSummary = defineComponent({
     )
 
     return () => (
-      <div class={s.wrapper}>
-        {
-          items.value ?
-            (<>
-              <ul class={s.total}>
-                <li>
-                  <span>收入</span>
-                  <span>
-                    <Money value={itemBalance.income} />
-                  </span>
-                </li>
-                <li>
-                  <span>支出</span>
-                  <span>
-                    <Money value={itemBalance.expenses} />
-                  </span>
-                </li>
-                <li>
-                  <span>净收入</span>
-                  <span>
-                    <Money value={itemBalance.balance} />
-                  </span>
-                </li>
-              </ul>
-              <ol class={s.list}>
-                {items.value.map((item: any) => (
-                  <li>
-                    <div class={s.sign}>
-                      <span>{item.tags[0].sign}</span>
-                    </div>
-                    <div class={s.text}>
-                      <div class={s.tagAndAmount}>
-                        <span class={s.tag}>
-                          {item.tags[0].name}
-                        </span>
-                        <span class={s.amount}>
-                          ￥<Money value={item.amount} isShowDecimal={true} />
-                        </span>
-                      </div>
-                      <div class={s.time}>
-                        <Datetime value={item.happen_at} />
-                      </div>
-                    </div>
-                  </li>
-                ))}
-              </ol>
-              <div class={s.more}>
-                {
-                  hasMore.value ?
-                    <Button onClick={onGetItems}>加载更多</Button> :
-                    <div class={s.noMore}>没有更多</div>
-                }
-              </div>
-            </>
-            ) :
-            (<div>记录为空</div>)
-        }
-        <RouterLink to={"/item/create"}>
-          < FloatButton />
-        </RouterLink>
-      </div >
+      !props.startData || !props.endData
+        ?
+        (<div>请选择时间范围</div>)
+        :
+        (
+          <div class={s.wrapper} >
+            {
+              items.value ?
+                (<>
+                  <ul class={s.total}>
+                    <li>
+                      <span>收入</span>
+                      <span>
+                        <Money value={itemBalance.income} />
+                      </span>
+                    </li>
+                    <li>
+                      <span>支出</span>
+                      <span>
+                        <Money value={itemBalance.expenses} />
+                      </span>
+                    </li>
+                    <li>
+                      <span>净收入</span>
+                      <span>
+                        <Money value={itemBalance.balance} />
+                      </span>
+                    </li>
+                  </ul>
+                  <ol class={s.list}>
+                    {items.value.map((item: any) => (
+                      <li>
+                        <div class={s.sign}>
+                          <span>{item.tags[0].sign}</span>
+                        </div>
+                        <div class={s.text}>
+                          <div class={s.tagAndAmount}>
+                            <span class={s.tag}>
+                              {item.tags[0].name}
+                            </span>
+                            <span class={s.amount}>
+                              ￥<Money value={item.amount} isShowDecimal={true} />
+                            </span>
+                          </div>
+                          <div class={s.time}>
+                            <Datetime value={item.happen_at} />
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
+                  <div class={s.more}>
+                    {
+                      hasMore.value ?
+                        <Button onClick={onGetItems}>加载更多</Button> :
+                        <div class={s.noMore}>没有更多</div>
+                    }
+                  </div>
+                </>
+                ) :
+                (<div>记录为空</div>)
+            }
+            <RouterLink to={"/item/create"}>
+              < FloatButton />
+            </RouterLink>
+          </div >
+        )
     );
   },
 });
