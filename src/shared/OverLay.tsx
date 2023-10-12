@@ -16,7 +16,6 @@ export const OverLay = defineComponent({
   setup: (props, content) => {
     const meStore = useMeStore()
     const route = useRoute()
-    const router = useRouter()
     const close = () => {
       props.onClose?.();
     };
@@ -29,7 +28,8 @@ export const OverLay = defineComponent({
       if (res !== 'confirm') return
 
       localStorage.removeItem('jwt')
-      router.push('/sign_in')
+      window.location.reload()
+      // router.push('/sign_in')
     };
 
     const me = ref<User>()
